@@ -3,27 +3,26 @@ package handlers
 import (
 	"github.com/gofiber/fiber/v2"
 
-	s "github.com/3n3a/research-tool/system"
+	l "github.com/3n3a/research-tool/lib"
 )
 
-var pageInfo = s.Page{
+var pageInfo = l.Page{
 	AppName: "Research Tool",
 	Title: "Research Tool",
-	MenuItems: []s.MenuItem{
-		s.MenuItem{
+	MenuItems: []l.MenuItem{
+		l.MenuItem{
 			Name: "Home",
 			Link: "/",
 			Active: false,
 		},
 	},
-	SysInfo: nil,
 }
 
 
 
 // Home renders the home view
 func Home(c *fiber.Ctx) error {
-	return s.renderView(c, "Home", "index")
+	return l.RenderView(c, pageInfo, "Home", "index")
 }
 
 // NoutFound renders the 404 view

@@ -1,4 +1,4 @@
-package system
+package lib
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -28,7 +28,7 @@ func activateCurrentMenuItem(pageInfo Page, Name string) error {
 	return nil
 }
 
-func renderView(c *fiber.Ctx, pageInfo Page, pageName string, templName string) error {
+func RenderView(c *fiber.Ctx, pageInfo Page, pageName string, templName string) error {
 	activateCurrentMenuItem(pageInfo, pageName)
 	pageInfo.Title = pageName
 	return c.Render(templName, pageInfo)

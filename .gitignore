@@ -22,3 +22,7 @@ node_modules/
 
 # Bundled assets
 public/assets/
+
+## custom
+*.env
+!*.template.env

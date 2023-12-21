@@ -1,0 +1,37 @@
+{
+	"name": "researchtool devcontainer",
+	"image": "mcr.microsoft.com/devcontainers/universal:latest",
+	"features": {
+
+	},
+	"remoteEnv": {
+		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
+		"GIT_USER": "${localEnv:GIT_USER}",
+		"GIT_EMAIL": "${localEnv:GIT_EMAIL}"
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"workbench.colorTheme": "Dracula"
+			},
+			"extensions": [
+				"ms-python.python",
+				"redhat.vscode-yaml",
+				"golang.Go",
+				"esbenp.prettier-vscode",
+				"dracula-theme.theme-dracula",
+				"ms-vscode.references-view",
+				"svelte.svelte-vscode",
+				"ms-vscode.live-server",
+				"redhat.ansible",
+				"ms-pyright.pyright",
+				"ms-python.pylint",
+				"ms-python.black-formatter"
+			]
+		}
+	},
+	"postCreateCommand": "bash -c 'git config --global user.email \"${localEnv:GIT_EMAIL}\" && git config --global user.name \"${localEnv:GIT_USER}\"'",
+	"mounts": [
+		"type=bind,source=/home/${localEnv:USER}/.ssh,target=/home/codespace/.ssh,readonly"
+	]
+}
