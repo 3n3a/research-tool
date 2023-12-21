@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.page-title {
+		@apply text-4xl text-black pb-10;
+	}
+
+	.card {
+		@apply bg-indigo-700 hover:bg-indigo-500 rounded-lg h-48 min-h-full p-4 flex flex-row items-center justify-center;
+	}
+
+	.primary-table {
+		@apply table-auto w-full text-black;
+
+		.primary-table-tr {
+			@apply border-b-2;
+		}
+
+		.primary-table-td {
+			@apply px-4 py-2;
+		}
+	}
+}
