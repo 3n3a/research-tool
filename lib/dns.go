@@ -40,7 +40,7 @@ func LookupDNSRecord(name string, type string) (DNSRes, error) {
 	}
 	resp, err := client.R().
 		SetQueryParams(map[string]string{
-			"name": domain,
+    		"name": domain,
             "type": type,
 		}).
 		SetHeader("Accept", "application/dns-json").
