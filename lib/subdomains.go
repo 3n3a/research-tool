@@ -1,6 +1,8 @@
 package lib
 
 import (
+	"crypto/tls"
+
 	"github.com/go-resty/resty/v2"
 )
 
@@ -14,6 +16,7 @@ func GetSubdomains(domain string) (Subdomains, error) {
 	subdomainRes := SubdomainRes{} 
 
 	client := resty.New()
+	client.SetTLSClientConfig(&tls.Config{ InsecureSkipVerify: true })
 	//client.SetDebug(true)
 
 	_, err := client.R().

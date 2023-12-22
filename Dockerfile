@@ -23,8 +23,8 @@ RUN go mod download
 RUN CGO_ENABLED=0 go build -o /go/bin/app
 
 # Now copy it into our base image.
-#FROM gcr.io/distroless/static-debian11
-FROM ubuntu:22.04
+FROM gcr.io/distroless/static-debian11
+#FROM ubuntu:22.04
 COPY --from=build /go/bin/app /
 COPY --from=build /go/src/app/views/ /views
 COPY --from=build /go/src/app/public/ /public
