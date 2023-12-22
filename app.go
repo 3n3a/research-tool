@@ -69,10 +69,10 @@ func main() {
 			for _, pathMatch := range cacheIncludeSlice {
 				match, _ := regexp.MatchString(pathMatch, c.Path())
 				if match {
-					return true
+					return false
 				}
 			}
-			return false
+			return true
 		},
 		Expiration: CACHE_LENGTH,
 		CacheControl: true, 
