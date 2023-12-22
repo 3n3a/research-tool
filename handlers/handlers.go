@@ -50,6 +50,7 @@ func Subdomains(c *fiber.Ctx) error {
 func DNSResolve(c *fiber.Ctx) error {
 	domain := c.Query("domain")
 	dnstype := c.Query("type")
+
 	dnsres, err := l.LookupDNSRecord(domain, dnstype)
     if err != nil {
 		pageInfo.Message = err.Error()

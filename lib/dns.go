@@ -32,7 +32,7 @@ type DNSRes struct {
 func LookupDNSRecord(name string, dnstype string) (DNSRes, error) {
 	client := resty.New()
 	client.SetTLSClientConfig(&tls.Config{ InsecureSkipVerify: true })
-	//client.SetDebug(true)
+	client.SetDebug(true)
 
 	if name == "" {
 		return DNSRes{}, nil
@@ -49,5 +49,5 @@ func LookupDNSRecord(name string, dnstype string) (DNSRes, error) {
     // parse error codes
     // https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-json/
 
-	return resp.Result().(DNSRes), err
+	return *(resp.Result().(*DNSRes)), err
 }

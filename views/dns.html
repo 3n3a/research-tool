@@ -4,8 +4,10 @@
 {{end}}
 {{template "partials/domain" .}}
 
-<h2 class="text-2xl">Response</h2>
+<h2 class="text-2xl py-2 pt-4">Response</h2>
 
-<pre>
+<div class="w-full overflow-auto">
+<p class="text-wrap">
     {{.DNSRes | printf "%+v"}}
-</pre>
+</p>
+</div>
