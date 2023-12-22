@@ -2,7 +2,6 @@ package lib
 
 import (
 	"crypto/tls"
-	"fmt"
 
 	"github.com/go-resty/resty/v2"
 )
@@ -30,18 +29,18 @@ type DNSRes struct {
     Answer []DNSAnswer
 }
 
-func LookupDNSRecord(name string, type string) (DNSRes, error) {
+func LookupDNSRecord(name string, dnstype string) (DNSRes, error) {
 	client := resty.New()
 	client.SetTLSClientConfig(&tls.Config{ InsecureSkipVerify: true })
 	//client.SetDebug(true)
 
-	if domain == "" {
+	if name == "" {
 		return DNSRes{}, nil
 	}
 	resp, err := client.R().
 		SetQueryParams(map[string]string{
-    		"name": domain,
-            "type": type,
+    		"name": name,
+            "type": dnstype,
 		}).
 		SetHeader("Accept", "application/dns-json").
 		SetResult(&DNSRes{}).
@@ -50,5 +49,5 @@ func LookupDNSRecord(name string, type string) (DNSRes, error) {
     // parse error codes
     // https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-json/
 
-	return resp, err
+	return resp.Result().(DNSRes), err
 }

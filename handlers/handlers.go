@@ -41,6 +41,8 @@ func Subdomains(c *fiber.Ctx) error {
 	return l.RenderView(c, pageInfo, "Subdomains", "subdomains")
 }
 
+// TODO: dns req
+
 // NoutFound renders the 404 view
 func NotFound(c *fiber.Ctx) error {
 	return c.Status(404).Render("error", pageInfo)
