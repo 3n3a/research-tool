@@ -76,6 +76,9 @@ func main() {
 		},
 		Expiration: CACHE_LENGTH,
 		CacheControl: true, 
+  KeyGenerator: func(c *fiber.Ctx) string {
+			return c.OriginalURL()
+		},
 	}))
 
 	// Setup routes
