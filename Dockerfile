@@ -13,7 +13,7 @@ FROM golang:1.21 as build
 
 WORKDIR /go/src/app
 COPY . .
-COPY --from=css /app/public/assets/* ./public/assets
+COPY --from=css /app/public/assets/ ./public/assets
 
 RUN go mod download
 
