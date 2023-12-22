@@ -2,6 +2,7 @@ package lib
 
 import (
 	"crypto/tls"
+	"fmt"
 
 	"github.com/go-resty/resty/v2"
 )
@@ -26,6 +27,10 @@ func GetSubdomains(domain string) (Subdomains, error) {
 		SetHeader("Accept", "application/json").
 		SetResult(&subdomainRes).
 		Get("https://api.subdomain.center")
+
+	for i, sub := range subdomainRes {
+		subdomainRes[i] = fmt.Sprintf("http://%s", sub)
+	}
 
 	return Subdomains{
 		List: subdomainRes,
