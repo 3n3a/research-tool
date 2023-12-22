@@ -20,6 +20,12 @@ func GetSubdomains(domain string) (Subdomains, error) {
 	client.SetTLSClientConfig(&tls.Config{ InsecureSkipVerify: true })
 	//client.SetDebug(true)
 
+	if domain == "" {
+		return Subdomains{
+			List: make(SubdomainRes, 0),
+			Domain: domain,
+		}, nil
+	}
 	_, err := client.R().
 		SetQueryParams(map[string]string{
 			"domain": domain,
