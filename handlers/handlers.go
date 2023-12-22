@@ -21,6 +21,11 @@ var pageInfo = l.Page{
 			Link: "/subdomains",
 			Active: false,
 		},
+	    {
+			Name: "DNS Resolve",
+			Link: "/dnsresolve",
+			Active: false,
+		},
 	},
 }
 
@@ -41,7 +46,18 @@ func Subdomains(c *fiber.Ctx) error {
 	return l.RenderView(c, pageInfo, "Subdomains", "subdomains")
 }
 
-// TODO: dns req
+// DNS Resolving
+func DNSResolve(c *fiber.Ctx) error {
+	domain := c.Query("domain")
+	dnstype := c.Query("type")
+	dnsres, err := l.LookupDNSRecord(domain, dnstype)
+    if err != nil {
+		pageInfo.Message = err.Error()
+		return l.RenderView(c, pageInfo, "DNS Lookup", "error")
+	}
+	pageInfo.DNSRes = dnsres
+	return l.RenderView(c, pageInfo, "DNS Lookup", "dns")
+}
 
 // NoutFound renders the 404 view
 func NotFound(c *fiber.Ctx) error {

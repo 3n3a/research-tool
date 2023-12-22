@@ -1,0 +1,11 @@
+
+{{define "inputs"}}
+  <input type="text" name="type" id="" class="text-input" placeholder="A, AAAA, CNAME, NS...">
+{{end}}
+{{template "partials/domain" .}}
+
+<h2 class="text-2xl">Response</h2>
+
+<pre>
+    {{.DNSRes | printf "%+v"}}
+</pre>

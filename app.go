@@ -80,6 +80,7 @@ func main() {
 	// Setup routes
 	app.Get("/", handlers.Home)
 	app.Get("/subdomains", handlers.Subdomains)
+	app.Get("/dnsresolve", handlers.DNSResolve)
 
 	// Setup static files
 	app.Static("/public", "./public")

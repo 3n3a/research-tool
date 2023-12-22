@@ -20,6 +20,8 @@ type Page struct {
 	Message string
 	
 	Subdomains Subdomains
+
+	DNSRes DNSRes
 }
 
 func activateCurrentMenuItem(pageInfo Page, Name string) error {

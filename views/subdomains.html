@@ -1,8 +1,4 @@
-<h2 class="text-2xl">Enter Domain</h2>
-<form method="get" class="flex flex-row gap-2">
-    <input type="text" name="domain" required value="{{.Subdomains.Domain}}" class="text-input" placeholder="example.com">
-    <button class="default-button" type="submit">Search</button>
-</form>
+{{template "partials/domain" .}}
 
 <h2 class="text-2xl pt-4">Subdomains of: <strong>{{.Subdomains.Domain}}</strong></p>
 

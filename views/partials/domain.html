@@ -1,0 +1,6 @@
+<h2 class="text-2xl">Enter Domain</h2>
+<form method="get" class="flex flex-col flex-wrap md:flex-row gap-2">
+    <input type="text" name="domain" required value="{{.Subdomains.Domain}}" class="text-input" placeholder="example.com">
+    {{block "inputs" .}}{{end}}
+    <button class="default-button" type="submit">Search</button>
+</form>
