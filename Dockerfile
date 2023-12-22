@@ -25,6 +25,6 @@ RUN CGO_ENABLED=0 go build -o /go/bin/app
 # Now copy it into our base image.
 FROM gcr.io/distroless/static-debian11
 COPY --from=build /go/bin/app /
-COPY --from=build /go/src/app/views /views
-COPY --from=build /go/src/app/public /public
+COPY --from=build /go/src/app/views/ /views
+COPY --from=build /go/src/app/public/ /public
 CMD ["/app"]
