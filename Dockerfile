@@ -1,8 +1,19 @@
 # Start by building the application.
+FROM node:20 as css
+
+WORKDIR /app
+COPY package*.json .
+RUN npm i
+
+COPY . .
+RUN npm run build
+
+# Build Golang App
 FROM golang:1.21 as build
 
 WORKDIR /go/src/app
 COPY . .
+COPY --from=css /app/public/assets/* ./public/assets
 
 RUN go mod download
 
