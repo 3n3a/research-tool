@@ -6,20 +6,20 @@
     {{ getCssAsset "app.css" }}
 </head>
 
-<body class="flex flex-col w-screen h-screen bg-white place-content-center text-white">
+<body class="flex flex-col bg-white min-w-screen min-h-screen place-content-center text-white">
     {{template "partials/header" .}}
 
-    <div class="flex flex-row flex-grow">
-        <div class="flex flex-col w-[20%] bg-gray-800">
+    <div class="flex flex-col md:flex-row flex-grow">
+        <div class="flex flex-row md:flex-col md:w-[20%] bg-gray-800">
             {{range .MenuItems}}
                 {{if .Active}}
-                <div class="flex flex-row bg-gray-700 hover:bg-gray-600">
+                <div class="flex md:flex-row bg-gray-700 hover:bg-gray-600">
                     <a class="p-4 w-full" href="{{ .Link }}">
                         {{ .Name }}
                     </a>
                 </div>
                 {{else}}
-                <div class="flex flex-row hover:bg-gray-600">
+                <div class="flex md:flex-row hover:bg-gray-600">
                     <a class="p-4 w-full" href="{{ .Link }}">
                         {{ .Name }}
                     </a>
@@ -28,8 +28,8 @@
             {{end}}
         </div>
 
-        <div class="flex flex-col flex-grow p-8">
-            <div class="flex-grow">
+        <div class="flex flex-row md:flex-col flex-grow py-2 px-2 md:p-8">
+            <div class="flex-grow text-black">
                 <h1 class="page-title">{{ .Title }}</h1>
                 {{embed}}
             </div>

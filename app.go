@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"html/template"
 	"os"
-	//"regexp"
+	"regexp"
 	"strings"
 	"time"
 	"slices"
@@ -17,12 +17,12 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/gofiber/fiber/v2/middleware/compress"
-	//"github.com/gofiber/fiber/v2/middleware/cache"
+	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/template/html/v2"	
 )
 
 const (
-	CACHE_INCLUDE = "/public/*;"
+	CACHE_INCLUDE = "/public/*;/subdomains*"
 	CACHE_LENGTH = 30 * time.Minute
 )
 
@@ -63,22 +63,23 @@ func main() {
 	app.Use(recover.New())
 	app.Use(logger.New())
 	app.Use(compress.New())
-	// app.Use(cache.New(cache.Config{
-	// 	Next: func(c *fiber.Ctx) bool {
-	// 		for _, pathMatch := range cacheIncludeSlice {
-	// 			match, _ := regexp.MatchString(pathMatch, c.Path())
-	// 			if match {
-	// 				return true
-	// 			}
-	// 		}
-	// 		return false
-	// 	},
-	// 	Expiration: CACHE_LENGTH,
-	// 	CacheControl: true, 
-	// }))
+	app.Use(cache.New(cache.Config{
+		Next: func(c *fiber.Ctx) bool {
+			for _, pathMatch := range cacheIncludeSlice {
+				match, _ := regexp.MatchString(pathMatch, c.Path())
+				if match {
+					return true
+				}
+			}
+			return false
+		},
+		Expiration: CACHE_LENGTH,
+		CacheControl: true, 
+	}))
 
 	// Setup routes
 	app.Get("/", handlers.Home)
+	app.Get("/subdomains", handlers.Subdomains)
 
 	// Setup static files
 	app.Static("/public", "./public")

@@ -1,11 +1,13 @@
 <div class="grid grid-flow-col gap-4">
     {{range .MenuItems}}
-    <span>
-        <a href="{{.Link}}">
-            <div class="card">
-                {{.Name}}
-            </div>
-        </a>
-    </span>
+        {{if ne .Name $.HomePage}}
+            <span>
+                <a href="{{.Link}}">
+                    <div class="card">
+                        {{.Name}}
+                    </div>
+                </a>
+            </span>
+        {{end}}
     {{end}}
 </div>

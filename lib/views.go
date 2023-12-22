@@ -14,7 +14,12 @@ type MenuItem struct {
 type Page struct {
 	AppName string
 	Title string
+	HomePage string
 	MenuItems []MenuItem
+
+	Message string
+	
+	Subdomains Subdomains
 }
 
 func activateCurrentMenuItem(pageInfo Page, Name string) error {
