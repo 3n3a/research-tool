@@ -1,9 +1,6 @@
 package lib
 
 import (
-	"crypto/tls"
-
-	"github.com/go-resty/resty/v2"
 )
 
 type DNSQuestion struct {
@@ -56,9 +53,7 @@ func GetDNSTypes() []string {
 }
 
 func LookupDNSRecord(name string, dnstype string) (DNSRes, error) {
-	client := resty.New()
-	client.SetTLSClientConfig(&tls.Config{ InsecureSkipVerify: true })
-	client.SetDebug(true)
+	client := NewHTTPClient()
 
 	if name == "" {
 		return DNSRes{}, nil

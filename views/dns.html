@@ -1,10 +1,11 @@
 {{template "partials/domain_dns" .}}
 
-
 <h2 class="text-2xl py-2 pt-4">Response</h2>
 
 <div class="w-full overflow-auto">
-<p class="text-wrap">
-    {{. | printf "%+v"}}
-</p>
+    <!-- <p class="text-wrap">
+        {{. | printf "%+v"}}
+    </p> -->
+
+    {{template "partials/dnsres" .}}
 </div>

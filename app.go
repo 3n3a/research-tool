@@ -2,44 +2,42 @@ package main
 
 import (
 	"fmt"
-	"path/filepath"
 	"html/template"
-	"os"
-	"regexp"
-	"strings"
-	"time"
-	"slices"
 	"log"
+	"os"
+	"path/filepath"
+	"regexp"
+	"time"
 
 	"github.com/3n3a/research-tool/handlers"
+	l "github.com/3n3a/research-tool/lib"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cache"
+	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/gofiber/fiber/v2/middleware/compress"
-	"github.com/gofiber/fiber/v2/middleware/cache"
-	"github.com/gofiber/template/html/v2"	
+	"github.com/gofiber/template/html/v2"
 )
 
-const (
-	CACHE_INCLUDE = "/public/*;/subdomains*"
-	CACHE_LENGTH = 30 * time.Minute
-)
+var appConfig = l.AppConfig{
+	CACHE_INCLUDE_RAW: "/public/*;/subdomains*",
+	CACHE_LENGTH: 30 * time.Minute,
+	APP_PORT: 3000,
+	APP_STATIC_FILES: "./public",
+	APP_VIEW_FILES:"./views",
+}
+
 
 func main() {
-	var cacheIncludeSlice = slices.DeleteFunc(
-		strings.Split(CACHE_INCLUDE, ";"),
-		func(e string) bool {
-			return e == ""
-	})
-	fmt.Println("Caching Paths:", cacheIncludeSlice)
+	appConfig.Setup()
 
 	// Create view engine
-	engine := html.New("./views", ".html")
+	engine := html.New(appConfig.APP_VIEW_FILES, ".html")
 
-	// Disable this in production
-	// TODO: only when dev, with env var
-	//engine.Reload(true)
+	if l.IsDev() {
+		engine.Reload(true)
+	}
 
 	engine.AddFunc("getCssAsset", func(name string) (res template.HTML) {
 		filepath.Walk("public/assets", func(path string, info os.FileInfo, err error) error {
@@ -63,23 +61,25 @@ func main() {
 	// Middleware
 	app.Use(recover.New())
 	app.Use(logger.New())
-	app.Use(compress.New())
-	app.Use(cache.New(cache.Config{
-		Next: func(c *fiber.Ctx) bool {
-			for _, pathMatch := range cacheIncludeSlice {
-				match, _ := regexp.MatchString(pathMatch, c.Path())
-				if match {
-					return false
+	if !l.IsDev() {
+		app.Use(compress.New())
+		app.Use(cache.New(cache.Config{
+			Next: func(c *fiber.Ctx) bool {
+				for _, pathMatch := range appConfig.CACHE_INCLUDE {
+					match, _ := regexp.MatchString(pathMatch, c.Path())
+					if match {
+						return false // cached
+					}
 				}
-			}
-			return true
-		},
-		Expiration: CACHE_LENGTH,
-		CacheControl: true, 
-  KeyGenerator: func(c *fiber.Ctx) string {
-			return c.OriginalURL()
-		},
-	}))
+				return true // not cached
+			},
+			Expiration:   appConfig.CACHE_LENGTH,
+			CacheControl: true,
+			KeyGenerator: func(c *fiber.Ctx) string {
+				return c.OriginalURL()
+			},
+		}))
+	}
 
 	// Setup routes
 	app.Get("/", handlers.Home)
@@ -87,11 +87,11 @@ func main() {
 	app.Get("/dnsresolve", handlers.DNSResolve)
 
 	// Setup static files
-	app.Static("/public", "./public")
+	app.Static("/public", appConfig.APP_STATIC_FILES)
 
 	// Handle not founds
 	app.Use(handlers.NotFound)
 
 	// Listen on port 3000
-	log.Fatal(app.Listen(":3000"))
+	log.Fatal(app.Listen(fmt.Sprintf(":%d", appConfig.APP_PORT)))
 }
