@@ -20,6 +20,7 @@ type AppConfig struct {
 	APP_PORT          int
 	APP_STATIC_FILES  string
 	APP_VIEW_FILES    string
+	ENVIRONMENT       string
 }
 
 func (a *AppConfig) Setup() {
@@ -30,6 +31,9 @@ func (a *AppConfig) Setup() {
 			return e == ""
 		},
 	)
+
+	// ENv
+	a.ENVIRONMENT = os.Getenv("ENVIRONMENT")
 
 	// Print Configuration
 	fmt.Printf("=== App Configuration ===\n")

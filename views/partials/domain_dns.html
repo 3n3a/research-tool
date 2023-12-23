@@ -12,9 +12,9 @@
             <option disabled selected>Select a type</option>
             {{range .DNSTypes}}
                 {{if eq . $.DNSRes.DNSType}}
-                <option value="{{.}}" selected>{{.}}</option>
+                    <option value="{{.}}" selected>{{.}}</option>
                 {{else}}
-                <option value="{{.}}">{{.}}</option>
+                    <option value="{{.}}">{{.}}</option>
                 {{end}}
             {{end}}
         </select>
