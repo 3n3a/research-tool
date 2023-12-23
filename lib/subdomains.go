@@ -1,10 +1,7 @@
 package lib
 
 import (
-	"crypto/tls"
 	"fmt"
-
-	"github.com/go-resty/resty/v2"
 )
 
 type SubdomainRes []string
@@ -14,12 +11,10 @@ type Subdomains struct {
 }
 
 func GetSubdomains(domain string) (Subdomains, error) {
+	client := NewHTTPClient()
+
 	subdomainRes := SubdomainRes{} 
-
-	client := resty.New()
-	client.SetTLSClientConfig(&tls.Config{ InsecureSkipVerify: true })
-	//client.SetDebug(true)
-
+	
 	if domain == "" {
 		return Subdomains{
 			List: make(SubdomainRes, 0),
