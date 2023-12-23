@@ -22,8 +22,8 @@ var pageInfo = l.Page{
 			Active: false,
 		},
 	    {
-			Name: "DNS Resolve",
-			Link: "/dnsresolve",
+			Name: "DNS Lookup",
+			Link: "/dns",
 			Active: false,
 		},
 	},
