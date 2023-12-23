@@ -57,6 +57,7 @@ func DNSResolve(c *fiber.Ctx) error {
 		return l.RenderView(c, pageInfo, "DNS Lookup", "error")
 	}
 	pageInfo.DNSRes = dnsres
+	pageInfo.DNSTypes = l.GetDNSTypes()
 	return l.RenderView(c, pageInfo, "DNS Lookup", "dns")
 }
 
