@@ -1,0 +1,8 @@
+<h2 class="text-2xl">Search</h2>
+<form method="get" class="flex flex-col flex-wrap md:flex-row gap-2">
+    <div class="input-container">
+        <label for="domain">Domain</label>
+        <input type="text" name="domain" id="domain" required value="{{.Subdomains.Domain}}" class="text-input" placeholder="example.com">
+    </div>
+    <button class="default-button" type="submit">Search</button>
+</form>

@@ -22,6 +22,7 @@ type Page struct {
 	Subdomains Subdomains
 
 	DNSRes DNSRes
+	DNSTypes []string
 }
 
 func activateCurrentMenuItem(pageInfo Page, Name string) error {

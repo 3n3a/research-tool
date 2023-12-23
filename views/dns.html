@@ -1,13 +1,10 @@
+{{template "partials/domain_dns" .}}
 
-{{define "inputs"}}
-  <input type="text" name="type" id="" class="text-input" placeholder="A, AAAA, CNAME, NS...">
-{{end}}
-{{template "partials/domain" .}}
 
 <h2 class="text-2xl py-2 pt-4">Response</h2>
 
 <div class="w-full overflow-auto">
 <p class="text-wrap">
-    {{.DNSRes | printf "%+v"}}
+    {{. | printf "%+v"}}
 </p>
 </div>

@@ -19,6 +19,9 @@ type DNSAnswer struct {
 }
 
 type DNSRes struct {
+	DNSDomain string
+	DNSType string
+
 	Status int
     TC bool
     RD bool
@@ -27,6 +30,29 @@ type DNSRes struct {
     CD bool
     Question []DNSQuestion
     Answer []DNSAnswer
+}
+
+
+func GetDNSTypes() []string {
+	DNS_TYPE_LIST := []string{
+		"A",
+		"AAAA",
+		"ANY",
+		"CAA",
+		"CNAME",
+		"DNSKEY",
+		"DS",
+		"MX",
+		"NS",
+		"PTR",
+		"SOA",
+		"SRV",
+		"TLSA",
+		"TSIG",
+		"TXT",
+	}
+
+	return DNS_TYPE_LIST
 }
 
 func LookupDNSRecord(name string, dnstype string) (DNSRes, error) {
@@ -46,8 +72,12 @@ func LookupDNSRecord(name string, dnstype string) (DNSRes, error) {
 		SetResult(&DNSRes{}).
 		Get("https://cloudflare-dns.com/dns-query")
 
-    // parse error codes
+    // TODO: parse error codes
     // https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-json/
 
-	return *(resp.Result().(*DNSRes)), err
+	dnsres := *(resp.Result().(*DNSRes))
+	dnsres.DNSDomain = name
+	dnsres.DNSType = dnstype
+
+	return dnsres, err
 }
