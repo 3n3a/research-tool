@@ -36,3 +36,19 @@ Then run the fiber app
 ```bash
 air
 ```
+
+## Data Sources
+
+All the sources where the data comes from
+
+### Subdomains
+
+ARP Syndicate has an API to get subdomains. It uses tls certificate logs to get this info. 
+
+**Source**: [subdomain.center](https://subdomain.center)
+
+### DNS Lookup
+
+DNS over HTTPS Lookup via Cloudflare DNS
+
+**Source**: [one.one.one.one](https://1.1.1.1)
