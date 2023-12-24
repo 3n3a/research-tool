@@ -14,6 +14,7 @@ type MenuItem struct {
 type Page struct {
 	AppName string
 	Title string
+	Version string
 	HomePage string
 	MenuItems []MenuItem
 

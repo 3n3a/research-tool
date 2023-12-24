@@ -3,6 +3,7 @@ module github.com/3n3a/research-tool
 go 1.21
 
 require (
+	github.com/carlmjohnson/versioninfo v0.22.5
 	github.com/gofiber/fiber/v2 v2.51.0
 	github.com/gofiber/template/html/v2 v2.0.5
 )

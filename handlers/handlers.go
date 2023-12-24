@@ -9,6 +9,7 @@ import (
 var pageInfo = l.Page{
 	AppName: "Research Tool",
 	Title: "Research Tool",
+	Version: l.GetVersion(),
 	HomePage: "Home",
 	MenuItems: []l.MenuItem{
 		{
