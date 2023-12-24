@@ -20,7 +20,7 @@ RUN go mod download
 # RUN go install github.com/swaggo/swag/cmd/swag@latest && \
 #     swag init # gen docs before building
 
-RUN CGO_ENABLED=0 go build -o /go/bin/app
+RUN CGO_ENABLED=0 go build -buildvcs=true -o /go/bin/app
 
 # Now copy it into our base image.
 FROM gcr.io/distroless/static-debian11
