@@ -6,28 +6,33 @@ import (
 	l "github.com/3n3a/research-tool/lib"
 )
 
-var pageInfo = l.Page{
-	AppName: "Research Tool",
-	Title: "Research Tool",
-	Version: l.GetVersion(),
-	HomePage: "Home",
-	MenuItems: []l.MenuItem{
-		{
-			Name: "Home",
-			Link: "/",
-			Active: false,
+var pageInfo = l.Page{}
+
+func SetupPage(version string) {
+	pageInfo = l.Page{
+		AppName: "Research Tool",
+		Title: "Research Tool",
+		Version: version,
+		HomePage: "Home",
+		MenuItems: []l.MenuItem{
+			{
+				Name: "Home",
+				Link: "/",
+				Active: false,
+			},
+			{
+				Name: "Subdomains",
+				Link: "/subdomains",
+				Active: false,
+			},
+			{
+				Name: "DNS Lookup",
+				Link: "/dns",
+				Active: false,
+			},
 		},
-		{
-			Name: "Subdomains",
-			Link: "/subdomains",
-			Active: false,
-		},
-	    {
-			Name: "DNS Lookup",
-			Link: "/dns",
-			Active: false,
-		},
-	},
+	}
+	
 }
 
 // Home renders the home view
