@@ -20,17 +20,20 @@ import (
 	"github.com/gofiber/template/html/v2"
 )
 
+var version string
 var appConfig = l.AppConfig{
 	CACHE_INCLUDE_RAW: "/public/*;/subdomains*",
 	CACHE_LENGTH: 30 * time.Minute,
 	APP_PORT: 3000,
 	APP_STATIC_FILES: "./public",
 	APP_VIEW_FILES:"./views",
+	VERSION: version,
 }
 
 
 func main() {
 	appConfig.Setup()
+	handlers.SetupPage(appConfig.VERSION)
 
 	// Create view engine
 	engine := html.New(appConfig.APP_VIEW_FILES, ".html")

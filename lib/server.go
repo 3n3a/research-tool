@@ -7,8 +7,6 @@ import (
 	"slices"
 	"strings"
 	"time"
-
-	"github.com/carlmjohnson/versioninfo"
 )
 
 const (
@@ -38,23 +36,10 @@ func (a *AppConfig) Setup() {
 	// ENv
 	a.ENVIRONMENT = os.Getenv("ENVIRONMENT")
 
-    // Version from Git Tag
-	a.VERSION = GetVersion()
-
-	// Print Configuration
-    fmt.Println("=== Build Information ===")
-	fmt.Println("Version:", versioninfo.Version)
-    fmt.Println("Revision:", versioninfo.Revision)
-    fmt.Println("DirtyBuild:", versioninfo.DirtyBuild)
-    fmt.Println("LastCommit:", versioninfo.LastCommit)
-
+	// Print config
 	fmt.Printf("=== App Configuration ===\n")
 	configJson, _ := json.MarshalIndent(a, "", "  ")
 	fmt.Printf("%s\n", configJson)
-}
-
-func GetVersion() string {
-	return versioninfo.Version
 }
 
 func IsDev() bool {
