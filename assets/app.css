@@ -39,9 +39,12 @@
 		@apply block w-full flex flex-col;
 	}
 
-	.link-button {
-		@apply bg-lime-600 w-full p-2 text-white hover:drop-shadow-md;
+	.custom-wrap {
 		text-wrap: wrap;
 		word-break: break-all;
+	}
+
+	.link-button {
+		@apply custom-wrap bg-lime-600 w-full p-2 text-white hover:drop-shadow-md;
 	}
 }
