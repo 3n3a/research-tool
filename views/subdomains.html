@@ -1,4 +1,24 @@
-{{template "partials/domain_subdomains" .}}
+<h2 class="text-2xl">Search</h2>
+<form method="get" class="flex flex-col flex-wrap md:flex-row gap-2">
+    <div class="input-container">
+        <label for="domain">Domain</label>
+        <input type="text" name="domain" id="domain" required value="{{.Subdomains.Domain}}" class="text-input" placeholder="example.com">
+    </div>
+    <div class="input-container">
+        <label for="type">Subdomains Source </label>
+        <select name="type" id="type" class="text-input">
+            <option disabled selected>Select a type</option>
+            {{range $key, $value := .SubdomainSources}}
+                {{if eq $key $.Subdomains.Source}}
+                    <option value="{{$key}}" selected>{{$value}}</option>
+                {{else}}
+                    <option value="{{$key}}">{{$value}}</option>
+                {{end}}
+            {{end}}
+        </select>
+    </div>
+    <button class="default-button" type="submit">Search</button>
+</form>
 
 <h2 class="text-2xl pt-4">Subdomains of: <strong>{{.Subdomains.Domain}}</strong></p>
 

@@ -1,4 +1,4 @@
-package lib
+package common
 
 import (
 	"encoding/json"
@@ -40,12 +40,4 @@ func (a *AppConfig) Setup() {
 	fmt.Printf("=== App Configuration ===\n")
 	configJson, _ := json.MarshalIndent(a, "", "  ")
 	fmt.Printf("%s\n", configJson)
-}
-
-func IsDev() bool {
-	env := os.Getenv(ENV_NAME)
-	if env == "" || env == "prod" {
-		return false
-	}
-	return true
 }

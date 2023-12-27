@@ -1,4 +1,4 @@
-package lib
+package ip
 
 // todo: add ip info
 
