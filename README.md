@@ -45,7 +45,7 @@ All the sources where the data comes from
 
 ARP Syndicate has an API to get subdomains. It uses tls certificate logs to get this info. 
 
-**Source**: [subdomain.center](https://subdomain.center)
+**Source**: [subdomain.center](https://subdomain.center) / [crt.sh](https://crt.sh)
 
 ### DNS Lookup
 
