@@ -3,18 +3,20 @@ package handlers
 import (
 	"github.com/gofiber/fiber/v2"
 
-	l "github.com/3n3a/research-tool/lib"
+	common "github.com/3n3a/research-tool/lib/common"
+	dns "github.com/3n3a/research-tool/lib/dns"
+	subdomains "github.com/3n3a/research-tool/lib/subdomains"
 )
 
-var pageInfo = l.Page{}
+var pageInfo = common.Page{}
 
 func SetupPage(version string) {
-	pageInfo = l.Page{
+	pageInfo = common.Page{
 		AppName: "Research Tool",
 		Title: "Research Tool",
 		Version: version,
 		HomePage: "Home",
-		MenuItems: []l.MenuItem{
+		MenuItems: []common.MenuItem{
 			{
 				Name: "Home",
 				Link: "/",
@@ -37,19 +39,22 @@ func SetupPage(version string) {
 
 // Home renders the home view
 func Home(c *fiber.Ctx) error {
-	return l.RenderView(c, pageInfo, "Home", "index")
+	return common.RenderView(c, pageInfo, "Home", "index")
 }
 
 // Subdomains renders the home view
 func Subdomains(c *fiber.Ctx) error {
 	domain := c.Query("domain")
-	subdomains, err := l.GetSubdomains(domain)
+	source := c.Query("source", "crtsh")
+
+	subdomainsRes, err := subdomains.GetSubdomains(domain, source)
 	if err != nil {
 		pageInfo.Message = err.Error()
-		return l.RenderView(c, pageInfo, "Subdomains", "error")
+		return common.RenderView(c, pageInfo, "Subdomains", "error")
 	}
-	pageInfo.Subdomains = subdomains
-	return l.RenderView(c, pageInfo, "Subdomains", "subdomains")
+	pageInfo.Subdomains = subdomainsRes
+	pageInfo.SubdomainSources = subdomains.GetSubdomainSources()
+	return common.RenderView(c, pageInfo, "Subdomains", "subdomains")
 }
 
 // DNS Resolving
@@ -57,14 +62,14 @@ func DNSResolve(c *fiber.Ctx) error {
 	domain := c.Query("domain")
 	dnstype := c.Query("type")
 
-	dnsres, err := l.LookupDNSRecord(domain, dnstype)
+	dnsres, err := dns.LookupDNSRecord(domain, dnstype)
     if err != nil {
 		pageInfo.Message = err.Error()
-		return l.RenderView(c, pageInfo, "DNS Lookup", "error")
+		return common.RenderView(c, pageInfo, "DNS Lookup", "error")
 	}
 	pageInfo.DNSRes = dnsres
-	pageInfo.DNSTypes = l.GetDNSTypes()
-	return l.RenderView(c, pageInfo, "DNS Lookup", "dns")
+	pageInfo.DNSTypes = dns.GetDNSTypes()
+	return common.RenderView(c, pageInfo, "DNS Lookup", "dns")
 }
 
 // NoutFound renders the 404 view

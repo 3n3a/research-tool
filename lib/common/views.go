@@ -1,6 +1,8 @@
-package lib
+package common
 
 import (
+	"github.com/3n3a/research-tool/lib/dns"
+	"github.com/3n3a/research-tool/lib/subdomains"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -20,9 +22,10 @@ type Page struct {
 
 	Message string
 	
-	Subdomains Subdomains
+	Subdomains subdomains.Subdomains
+	SubdomainSources subdomains.SubdomainSources
 
-	DNSRes DNSRes
+	DNSRes dns.DNSRes
 	DNSTypes []string
 }
 

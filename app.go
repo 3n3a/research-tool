@@ -9,8 +9,9 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/3n3a/research-tool/handlers"
-	l "github.com/3n3a/research-tool/lib"
+	handlers "github.com/3n3a/research-tool/handlers"
+	common "github.com/3n3a/research-tool/lib/common"
+	utils "github.com/3n3a/research-tool/lib/utils"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cache"
@@ -21,7 +22,7 @@ import (
 )
 
 var version string
-var appConfig = l.AppConfig{
+var appConfig = common.AppConfig{
 	CACHE_INCLUDE_RAW: "/public/*;/subdomains*",
 	CACHE_LENGTH: 30 * time.Minute,
 	APP_PORT: 3000,
@@ -38,7 +39,7 @@ func main() {
 	// Create view engine
 	engine := html.New(appConfig.APP_VIEW_FILES, ".html")
 
-	if l.IsDev() {
+	if utils.IsDev() {
 		engine.Reload(true)
 	}
 
@@ -64,7 +65,7 @@ func main() {
 	// Middleware
 	app.Use(recover.New())
 	app.Use(logger.New())
-	if !l.IsDev() {
+	if !utils.IsDev() {
 		app.Use(compress.New())
 		app.Use(cache.New(cache.Config{
 			Next: func(c *fiber.Ctx) bool {

@@ -1,7 +1,6 @@
-package lib
+package dns
 
-import (
-)
+import "github.com/3n3a/research-tool/lib/utils"
 
 type DNSQuestion struct {
     Name string `json:"name"`
@@ -29,7 +28,6 @@ type DNSRes struct {
     Answer []DNSAnswer
 }
 
-
 func GetDNSTypes() []string {
 	DNS_TYPE_LIST := []string{
 		"A",
@@ -53,7 +51,7 @@ func GetDNSTypes() []string {
 }
 
 func LookupDNSRecord(name string, dnstype string) (DNSRes, error) {
-	client := NewHTTPClient()
+	client := utils.NewHTTPClient()
 
 	if name == "" {
 		return DNSRes{}, nil
