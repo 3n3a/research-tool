@@ -6,8 +6,8 @@
     </div>
     <div class="input-container">
         <label for="type">Subdomains Source </label>
-        <select name="type" id="type" class="text-input">
-            <option disabled selected>Select a type</option>
+        <select name="source" id="source" class="text-input">
+            <option disabled selected>Select a source</option>
             {{range $key, $value := .SubdomainSources}}
                 {{if eq $key $.Subdomains.Source}}
                     <option value="{{$key}}" selected>{{$value}}</option>
