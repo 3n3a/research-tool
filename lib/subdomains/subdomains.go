@@ -38,6 +38,8 @@ func GetSubdomains(domain string, source string) (Subdomains, error) {
 	// sort
 	slices.Sort[[]string, string](subdomains.List)
 
+	// todo: resolve all and set status on subdomain before returning
+
 	// add context info
 	subdomains.Source = source
 	subdomains.Domain = domain
