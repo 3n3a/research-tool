@@ -17,6 +17,7 @@ node_modules/
 
 # Editor files
 .vscode/
+!.vscode/tasks.json
 
 .parcel-cache/
 
