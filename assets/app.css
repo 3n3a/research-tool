@@ -47,4 +47,8 @@
 	.link-button {
 		@apply custom-wrap bg-lime-600 w-full p-2 text-white hover:drop-shadow-md;
 	}
+
+	.code {
+		@apply bg-gray-200 rounded-md p-4 shadow-sm;
+	}
 }

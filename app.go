@@ -90,6 +90,12 @@ func main() {
 	app.Get("/subdomains", handlers.Subdomains)
 	app.Get("/dns", handlers.DNSResolve)
 
+	app.Get("/encoding", handlers.Base64Enc)
+	app.Post("/encoding", handlers.Base64Enc)
+
+	app.Get("/decoding", handlers.Base64Dec)
+	app.Post("/decoding", handlers.Base64Dec)
+
 	// Setup static files
 	app.Static("/public", appConfig.APP_STATIC_FILES)
 

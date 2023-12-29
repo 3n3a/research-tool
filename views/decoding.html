@@ -1,0 +1,26 @@
+<h2 class="text-2xl">Decode {{.BaseType}}</h2>
+<form method="post" class="flex flex-col flex-wrap md:flex-row gap-2">
+    <div class="input-container">
+        <label for="input">Input Text </label>
+        <input type="text" name="input" id="input" required value="" class="text-input"
+            placeholder="Your text..." />
+    </div>
+
+    <div class="input-container">
+        <label for="encoding">Decoding Type </label>
+        <select name="encoding" id="encoding" class="text-input">
+            <option disabled selected>Select a type</option>
+            <option value="std" selected>Standard Encoding</option>
+            <option value="url">Url Encoding</option>
+        </select>
+    </div>
+    <button class="default-button" type="submit">Decode</button>
+</form>
+
+<h2 class="text-2xl py-2 pt-4">Response</h2>
+
+<div class="w-full overflow-auto p-4 pb-8 flex flex-col items-start">
+    <p class="custom-wrap code">
+        {{.BaseResult}}
+    </p>
+</div>
