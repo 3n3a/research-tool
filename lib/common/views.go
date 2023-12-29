@@ -27,6 +27,9 @@ type Page struct {
 
 	DNSRes dns.DNSRes
 	DNSTypes []string
+
+	BaseType string
+	BaseResult string
 }
 
 func activateCurrentMenuItem(pageInfo Page, Name string) error {
