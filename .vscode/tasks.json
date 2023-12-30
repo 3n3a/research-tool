@@ -1,0 +1,60 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "NPM Setup",
+            "type": "shell",
+            "command": "npm i",
+            "group": "build",
+        },
+        {
+            "label": "NPM Run",
+            "type": "shell",
+            "command": "npm run dev",
+            "dependsOn": [
+                "NPM Setup"
+            ],
+            "group": "build",
+            "presentation": {
+                "group": "buildGroup",
+                "reveal": "always",
+                "panel": "new",
+                "echo": false,
+            }
+        },
+        {
+            "label": "GO Setup",
+            "type": "shell",
+            "command": "go get && go install github.com/cosmtrek/air@latest",
+            "group": "build",
+        },
+        {
+            "label": "GO Run",
+            "type": "shell",
+            "command": "air",
+            "dependsOn": [
+                "GO Setup"
+            ],
+            "group": "build",
+            "presentation": {
+                "group": "buildGroup",
+                "reveal": "always",
+                "panel": "new",
+                "echo": false,
+            }
+        },
+        {
+            "label": "Run All",
+            "dependsOn": [
+                "GO Run",
+                "NPM Run"
+            ],
+            "group": "build",
+            "runOptions": {
+                "runOn": "folderOpen" // This starts both tasks when the container is started
+            },
+        }
+    ]
+}
