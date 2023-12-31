@@ -9,6 +9,17 @@ import (
 	"github.com/3n3a/research-tool/lib/encoding"
 )
 
+func SetupEncoding() {
+	AddMenuEntry("Base64 Encode", "/encoding", 3)
+	AddMenuEntry("Base64 Decode", "/decoding", 4)
+
+	app.Get("/encoding", Base64Enc)
+	app.Post("/encoding", Base64Enc)
+
+	app.Get("/decoding", Base64Dec)
+	app.Post("/decoding", Base64Dec)
+}
+
 // Base64
 func Base64Enc(c *fiber.Ctx) error {
 	base64 := new(encoding.Base64) // input, encoding as fields

@@ -7,6 +7,12 @@ import (
 	dns "github.com/3n3a/research-tool/lib/dns"
 )
 
+func SetupDns() {
+	AddMenuEntry("DNS Lookup", "/dns", 2)
+
+	app.Get("/dns", DNSResolve)
+}
+
 // DNS Resolving
 func DNSResolve(c *fiber.Ctx) error {
 	domain := c.Query("domain")

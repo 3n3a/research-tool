@@ -1,6 +1,8 @@
 package common
 
 import (
+	"slices"
+
 	"github.com/3n3a/research-tool/lib/dns"
 	"github.com/3n3a/research-tool/lib/subdomains"
 	"github.com/gofiber/fiber/v2"
@@ -11,6 +13,7 @@ type MenuItem struct {
 	Name string
 	Link string
 	Active bool
+	Order int
 }
 
 type Page struct {
@@ -30,6 +33,23 @@ type Page struct {
 
 	BaseType string
 	BaseResult string
+}
+
+func (p *Page) SortMenu() {
+	slices.SortFunc[[]MenuItem, MenuItem](p.MenuItems, func(a, b MenuItem) int {
+		// a smaller than b
+		if a.Order < b.Order {
+			return -1
+		}
+
+		// a bigger than b
+		if a.Order > b.Order {
+			return 1
+		}
+
+		// equal order
+		return 0
+	})
 }
 
 func activateCurrentMenuItem(pageInfo Page, Name string) error {
