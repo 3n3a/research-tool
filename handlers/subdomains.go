@@ -7,6 +7,12 @@ import (
 	subdomains "github.com/3n3a/research-tool/lib/subdomains"
 )
 
+func SetupSubdomains() {
+	AddMenuEntry("Subdomains", "/subdomains", 1)
+
+	app.Get("/subdomains", Subdomains)
+}
+
 // Subdomains renders the home view
 func Subdomains(c *fiber.Ctx) error {
 	domain := c.Query("domain")

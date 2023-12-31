@@ -56,8 +56,10 @@ func (a *AppConfig) Setup() {
 	configJson, _ := json.MarshalIndent(a, "", "  ")
 	fmt.Printf("%s\n", configJson)
 
-	// Configure Handlers
-	handlers.SetupPage(a.VERSION)
+	// Set Version to DEV
+	if utils.IsDev() {
+		a.VERSION = "devel"
+	}
 
 	// start Gofiber server
 	a.setupServer()
@@ -113,16 +115,8 @@ func (a *AppConfig) setupServer() {
 		}))
 	}
 
-	// Setup routes
-	app.Get("/", handlers.Home)
-	app.Get("/subdomains", handlers.Subdomains)
-	app.Get("/dns", handlers.DNSResolve)
-
-	app.Get("/encoding", handlers.Base64Enc)
-	app.Post("/encoding", handlers.Base64Enc)
-
-	app.Get("/decoding", handlers.Base64Dec)
-	app.Post("/decoding", handlers.Base64Dec)
+	// Setup routes & configure handlers
+	handlers.SetupPage(a.VERSION, app)
 
 	// Setup static files
 	app.Static("/public", a.APP_STATIC_FILES)
