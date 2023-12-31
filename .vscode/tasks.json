@@ -7,7 +7,7 @@
             "label": "NPM Setup",
             "type": "shell",
             "command": "npm i",
-            "group": "build",
+            "group": "build"
         },
         {
             "label": "NPM Run",
@@ -21,14 +21,14 @@
                 "group": "buildGroup",
                 "reveal": "always",
                 "panel": "new",
-                "echo": false,
+                "echo": false
             }
         },
         {
             "label": "GO Setup",
             "type": "shell",
             "command": "go get && go install github.com/cosmtrek/air@latest",
-            "group": "build",
+            "group": "build"
         },
         {
             "label": "GO Run",
@@ -42,7 +42,7 @@
                 "group": "buildGroup",
                 "reveal": "always",
                 "panel": "new",
-                "echo": false,
+                "echo": false
             }
         },
         {
@@ -53,8 +53,9 @@
             ],
             "group": "build",
             "runOptions": {
-                "runOn": "folderOpen" // This starts both tasks when the container is started
+                "runOn": "folderOpen",
             },
+            "problemMatcher": []
         }
     ]
 }
