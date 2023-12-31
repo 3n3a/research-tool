@@ -22,7 +22,7 @@
 
 <h2 class="text-2xl pt-4">Subdomains of: <strong>{{.Subdomains.Domain}}</strong></p>
 
-<div class="max-h-[70vh] w-full flex flex-col items-start overflow-y-auto border-2 p-2 md:p-4 gap-2">
+<div class="max-h-[70vh] w-full flex flex-col items-start overflow-y-auto border-2 p-2 md:p-4 gap-2 rounded-md">
     {{range .Subdomains.List}}
         <div class="w-full flex">
             <a href="{{.}}" target="_blank" class="link-button">
