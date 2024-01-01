@@ -2,7 +2,7 @@
 <form method="get" class="flex flex-col flex-wrap md:flex-row gap-2">
     <div class="input-container">
         <label for="domain">Domain </label>
-        <input type="text" name="domain" id="domain" required value="{{.DNSRes.DNSDomain}}" class="text-input"
+        <input type="text" name="domain" id="domain" required value="{{.other.DNSRes.DNSDomain}}" class="text-input"
             placeholder="example.com" />
     </div>
 
@@ -10,8 +10,8 @@
         <label for="type">DNS Type </label>
         <select name="type" id="type" class="text-input">
             <option disabled selected>Select a type</option>
-            {{range .DNSTypes}}
-                {{if eq . $.DNSRes.DNSType}}
+            {{range .other.DNSTypes}}
+                {{if eq . $.other.DNSRes.DNSType}}
                     <option value="{{.}}" selected>{{.}}</option>
                 {{else}}
                     <option value="{{.}}">{{.}}</option>
@@ -25,11 +25,7 @@
 <h2 class="text-2xl py-2 pt-4">Response</h2>
 
 <div class="w-full overflow-auto p-4 pb-8 flex flex-col items-start">
-    <!-- <p class="text-wrap">
-        {{. | printf "%+v"}}
-    </p> -->
-
-    {{range .DNSRes.Answer}}
+    {{range .other.DNSRes.Answer}}
         <div class="shadow-md p-4 rounded-md flex flex-row gap-4 w-full">
             <div class="flex flex-col items-center justify-center">
                 <p class="text-xl font-bold">{{.HumanType}}</p>

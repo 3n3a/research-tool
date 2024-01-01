@@ -7,12 +7,11 @@ import (
 )
 
 func SetupHome() {
-	AddMenuEntry("Home", "/", 0)
-
+	pageInfo.AddMenuEntry("Home", "/", 0)
 	app.Get("/", Home)
 }
 
 // Home renders the home view
 func Home(c *fiber.Ctx) error {
-	return common.RenderView(c, pageInfo, "Home", "index")
+	return common.RenderView(c, pageInfo, struct{}{}, "Home", "index")
 }
