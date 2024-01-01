@@ -37,6 +37,10 @@ Then run the fiber app
 air
 ```
 
+## Versions of Frontend Libraries
+
+Libraries such as htmx that are included in the html directly and retrieved from cdn. The versions of those can be configured in `versions.json` file.
+
 ## Data Sources
 
 All the sources where the data comes from
