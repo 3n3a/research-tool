@@ -104,7 +104,8 @@ func getVersionObject(file string) map[string]interface{} {
 
 
 func RenderView(c *fiber.Ctx, page Page, additional any, pageName string, templName string) error {
-	page.ActivateMenuEntry(pageName)
+	page.SetTitle(pageName)
+ page.ActivateMenuEntry(pageName)
 	combinedInput := fiber.Map{
 		"page": page,
 		"other": additional,
