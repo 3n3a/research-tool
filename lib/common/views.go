@@ -112,3 +112,13 @@ func RenderView(c *fiber.Ctx, page Page, additional any, pageName string, templN
 	}
 	return c.Render(templName, combinedInput)
 }
+
+
+func RenderElem(c *fiber.Ctx, page Page, additional any, templName string) error {
+	combinedInput := fiber.Map{
+		"page": page,
+		"other": additional,
+		"versions": getVersionObject("versions.json"),
+	}
+	return c.Render(templName, combinedInput, "")
+}

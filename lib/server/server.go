@@ -86,6 +86,19 @@ func (a *AppConfig) setupServer() {
 		return
 	})
 
+	engine.AddFunc("getJsAsset", func(name string) (res template.HTML) {
+		filepath.Walk("public/assets", func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			if info.Name() == name {
+				res = template.HTML("<script src=\"/" + path + "\"></script>")
+			}
+			return nil
+		})
+		return
+	})
+
 	// Create fiber app
 	app := fiber.New(fiber.Config{
 		Views:       engine,

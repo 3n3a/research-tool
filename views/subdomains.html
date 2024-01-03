@@ -1,33 +1,47 @@
 <h2 class="text-2xl">Search</h2>
-<form method="get" class="flex flex-col flex-wrap md:flex-row gap-2">
-    <div class="input-container">
-        <label for="domain">Domain</label>
-        <input type="text" name="domain" id="domain" required value="{{.other.Subdomains.Domain}}" class="text-input" placeholder="example.com">
-    </div>
-    <div class="input-container">
-        <label for="type">Subdomains Source </label>
-        <select name="source" id="source" class="text-input">
-            <option disabled selected>Select a source</option>
-            {{range $key, $value := .other.SubdomainSources}}
-                {{if eq $key $.other.Subdomains.Source}}
-                    <option value="{{$key}}" selected>{{$value}}</option>
-                {{else}}
-                    <option value="{{$key}}">{{$value}}</option>
-                {{end}}
-            {{end}}
-        </select>
-    </div>
-    <button class="default-button" type="submit">Search</button>
+<form
+  hx-post="/subdomains"
+  hx-swap="innerHTML"
+  hx-target="#subdomains-results"
+  hx-trigger="load if allFilled()"
+  class="flex flex-col flex-wrap md:flex-row gap-2"
+>
+  <div class="input-container">
+    <label for="domain">Domain</label>
+    <input
+      type="text"
+      name="domain"
+      id="domain"
+      required
+      value="{{.other.Subdomains.Domain}}"
+      class="text-input"
+      placeholder="example.com"
+    />
+  </div>
+  <div class="input-container">
+    <label for="type">Subdomains Source </label>
+    <select name="source" id="source" class="text-input" required>
+      <option disabled selected>Select a source</option>
+      {{range $key, $value := .other.SubdomainSources}} {{if eq $key
+      $.other.Subdomains.Source}}
+      <option value="{{$key}}" selected>{{$value}}</option>
+      {{else}}
+      <option value="{{$key}}">{{$value}}</option>
+      {{end}} {{end}}
+    </select>
+  </div>
+  <button class="default-button" type="submit">
+    Search
+  </button>
 </form>
 
-<h2 class="text-2xl pt-4">Subdomains of: <strong>{{.other.Subdomains.Domain}}</strong></h2>
+<h2 class="text-2xl pt-4">
+  Subdomains of: <strong>{{.other.Subdomains.Domain}}</strong>
+</h2>
 
-<div class="max-h-[70vh] w-full flex flex-col items-start overflow-y-auto border-2 p-2 md:p-4 gap-2 rounded-md">
-    {{range .other.Subdomains.List}}
-        <div class="w-full flex">
-            <a href="{{.}}" target="_blank" class="link-button">
-                {{.}}
-            </a>
-        </div>
-    {{end}}
+<div
+  id="subdomains-results"
+  class="max-h-[70vh] w-full flex flex-col items-start overflow-y-auto border-2 p-2 md:p-4 gap-2 rounded-md"
+>
+    {{template "partials/loading-dark" .}}
 </div>
