@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"fmt"
+
 	"github.com/gofiber/fiber/v2"
 
 	common "github.com/3n3a/research-tool/lib/common"
@@ -39,5 +41,8 @@ func SubdomainsList(c *fiber.Ctx) error {
 	}
 	additionalInfo.Subdomains = subdomainsRes
 	additionalInfo.SubdomainSources = subdomains.GetSubdomainSources()
+
+	c.Set("HX-Push-Url", fmt.Sprintf("/subdomains?domain=%s&source=%s", domain, source))
+
 	return common.RenderElem(c, pageInfo, additionalInfo, "partials/subdomains-list")
 }

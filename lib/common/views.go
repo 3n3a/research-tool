@@ -1,10 +1,6 @@
 package common
 
 import (
-	"encoding/json"
-	"errors"
-	"fmt"
-	"os"
 	"slices"
 
 	"github.com/3n3a/research-tool/lib/dns"
@@ -90,18 +86,6 @@ func (p *Page) SortMenu() {
 	})
 }
 
-func getVersionObject(file string) map[string]interface{} {
-	out := &map[string]interface{}{}
-	data, err1 := os.ReadFile(file)
-	err2 := json.Unmarshal(data, out)
-	if err1 != nil || err2 != nil {
-		fmt.Println(err1)
-		fmt.Println(err2)
-		panic(errors.New("error while trying to read and decode version file"))
-	}
-	return *out
-}
-
 
 func RenderView(c *fiber.Ctx, page Page, additional any, pageName string, templName string) error {
 	page.SetTitle(pageName)
@@ -109,7 +93,6 @@ func RenderView(c *fiber.Ctx, page Page, additional any, pageName string, templN
 	combinedInput := fiber.Map{
 		"page": page,
 		"other": additional,
-		"versions": getVersionObject("versions.json"),
 	}
 	return c.Render(templName, combinedInput)
 }
@@ -119,7 +102,6 @@ func RenderElem(c *fiber.Ctx, page Page, additional any, templName string) error
 	combinedInput := fiber.Map{
 		"page": page,
 		"other": additional,
-		"versions": getVersionObject("versions.json"),
 	}
 	return c.Render(templName, combinedInput, "")
 }

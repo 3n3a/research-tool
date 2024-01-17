@@ -1,5 +1,7 @@
+{{template "partials/loading-dark" true}}
+
 {{range .other.Subdomains.List}}
-<div class="w-full flex">
-  <a href="{{.}}" target="_blank" class="link-button"> {{.}} </a>
-</div>
+  <div class="subdomain-list-element w-full flex">
+    <a href="{{.}}" target="_blank" class="link-button"> {{.}} </a>
+  </div>
 {{end}}
