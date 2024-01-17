@@ -20,11 +20,22 @@ window.allFilled = function (formSelector) {
   return true;
 }
 
+// Show Element by Selector
 window.showEl = (elSelector) => {
   htmx.find(elSelector).hidden = false
 }
+
+// Remove Elements by Selector
 window.cleanEls = (elSelector) => {
   htmx.findAll(elSelector).forEach(e => e.remove())
 }
 
-htmx.logAll();
+htmx.onLoad(() => {
+  // Hide Loading Indicator if Empty Form
+  if (!allFilledSubdomainsForm()) {
+    htmx.findAll('#loading-indicator').forEach(e => {
+      e.hidden = true;
+    })
+  }
+})
+// htmx.logAll();

@@ -32,7 +32,7 @@ func GetSubdomainsCRTSH(domain string) (Subdomains, error) {
 
 	if domain == "" {
 		return Subdomains{
-			List:   make([]string, 0),
+			List:   make([]SubdomainElement, 0),
 		}, nil
 	}
 	_, err := client.R().
@@ -52,13 +52,21 @@ func GetSubdomainsCRTSH(domain string) (Subdomains, error) {
 		// should exclude domains that equal with *.example.com or example.com
 		// should include ones that include the domain
 		if ( ! slices.Contains[[]string, string](exclusions, sub.CommonName) ) && strings.Contains(sub.CommonName, domain) {
-			list = append(list, fmt.Sprintf("http://%s", sub.CommonName))
+			list = append(list, sub.CommonName)
 		}
 	}
 
 	list = utils.UniqueNonEmptyElementsOf(list)
 
+	outList := make([]SubdomainElement, 0)
+	for _, el := range list {
+		outList = append(outList, SubdomainElement{
+			Hostname: fmt.Sprintf("%s%s", SUBDOMAINS_PREFIX, el),
+			Domain: el,
+		})
+	}
+
 	return Subdomains{
-		List:   list,
+		List:   outList,
 	}, err
 }
