@@ -9,7 +9,8 @@ window.allFilledSubdomainsForm = () => window.allFilled("#subdomain-form")
 window.allFilled = function (formSelector) {
   // Check if all form fields are filled
   const form = document.querySelector(formSelector);
-  const inputs = form.querySelectorAll("input[required]");
+  const inputs = form?.querySelectorAll("input[required]");
+  if (!inputs) return false
 
   for (const input of inputs) {
     if (!input.value.trim()) {

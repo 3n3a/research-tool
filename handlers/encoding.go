@@ -34,6 +34,7 @@ func Base64Enc(c *fiber.Ctx) error {
 	}
 
 	additionalInfo.BaseType = "Base64"
+	additionalInfo.BaseInput = base64.Input
 	additionalInfo.BaseResult = base64.Encode()
 	return common.RenderView(c, pageInfo, additionalInfo, "Base64 Encode", "encoding")
 }
@@ -55,6 +56,7 @@ func Base64Dec(c *fiber.Ctx) error {
 		return common.RenderView(c, pageInfo, additionalInfo, "Base64 Decode", "error")
 	}
 	additionalInfo.BaseType = "Base64"
+	additionalInfo.BaseInput = base64.Input
 	additionalInfo.BaseResult = out
 	return common.RenderView(c, pageInfo, additionalInfo, "Base64 Decode", "decoding")
 }

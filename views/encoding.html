@@ -1,8 +1,8 @@
 <h2 class="text-2xl">Encode {{.other.BaseType}}</h2>
-<form method="post" class="flex flex-col flex-wrap md:flex-row gap-2">
+<form id="coding-form" method="post" class="flex flex-col flex-wrap md:flex-row gap-2">
     <div class="input-container">
         <label for="input">Input Text </label>
-        <input type="text" name="input" id="input" required value="" class="text-input"
+        <input type="text" name="input" id="input" required value="{{.other.BaseInput}}" class="text-input"
             placeholder="Your text..." />
     </div>
 
@@ -20,7 +20,8 @@
 <h2 class="text-2xl py-2 pt-4">Response</h2>
 
 <div class="w-full overflow-auto p-4 pb-8 flex flex-col items-start">
-    <p class="custom-wrap code">
+    <button class="default-button mb-4" onclick="htmx.find('#input').value = '{{.other.BaseResult}}'; htmx.find('#coding-form').submit()">Again?</button>
+    <p class="custom-wrap code w-full">
         {{.other.BaseResult}}
     </p>
 </div>
