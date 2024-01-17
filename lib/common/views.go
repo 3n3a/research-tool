@@ -61,6 +61,7 @@ type DnsPage struct {
 
 type EncodingPage struct {
 	BaseType string
+	BaseInput string
 	BaseResult string
 }
 
