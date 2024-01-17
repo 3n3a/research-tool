@@ -1,1 +1,5 @@
-<img src="/public/assets/loading-dark.svg" alt="Loading..." class="htmx-indicator">
+{{if .}}
+    <img id="loading-indicator" src="/public/assets/loading-dark.svg" alt="Loading..." hidden>
+{{else}}
+    <img id="loading-indicator" src="/public/assets/loading-dark.svg" alt="Loading...">
+{{end}}
