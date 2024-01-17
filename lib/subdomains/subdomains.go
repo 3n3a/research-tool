@@ -2,13 +2,25 @@ package subdomains
 
 import (
 	"errors"
+	// "net"
 	"slices"
+	"strings"
 )
+
+const (
+	SUBDOMAINS_PREFIX = "https://"
+)
+
+type SubdomainElement struct {
+	Resolvable bool
+	Domain string
+	Hostname string
+}
 
 type Subdomains struct {
 	Domain string
 	Source string
-	List   []string
+	List   []SubdomainElement
 }
 
 type SubdomainSources map[string]string
@@ -23,7 +35,7 @@ func GetSubdomainSources() SubdomainSources {
 func GetSubdomains(domain string, source string) (Subdomains, error) {
 	// default
 	subdomains := Subdomains{
-		List:   make([]string, 0),
+		List:   make([]SubdomainElement, 0),
 	}
 	err := errors.New("subdomains source does not exist")
 	
@@ -36,9 +48,13 @@ func GetSubdomains(domain string, source string) (Subdomains, error) {
 	}
 
 	// sort
-	slices.Sort[[]string, string](subdomains.List)
+	slices.SortFunc[[]SubdomainElement, SubdomainElement](subdomains.List, func(a, b SubdomainElement) int {
+		return strings.Compare(a.Hostname, b.Hostname)
+	})
 
-	// todo: resolve all and set status on subdomain before returning
+	// for i, subdomainEl := range subdomains.List {
+	// 	subdomains.List[i].Resolvable = domainHasIPs(subdomainEl.Hostname)
+	// }
 
 	// add context info
 	subdomains.Source = source
@@ -46,3 +62,8 @@ func GetSubdomains(domain string, source string) (Subdomains, error) {
 	
 	return subdomains, err
 }
+
+// func domainHasIPs(hostname string) bool {
+// 	_, err := net.LookupIP(hostname)
+// 	return err != nil
+// }

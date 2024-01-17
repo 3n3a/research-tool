@@ -48,6 +48,13 @@
     @apply custom-wrap bg-lime-600 w-full p-2 text-white hover:drop-shadow-md rounded-md;
   }
 
+  .other-button {
+    @apply custom-wrap bg-cyan-600 w-24 p-2 text-white hover:drop-shadow-md rounded-md;
+  }
+  .dns-button {
+    @apply other-button bg-cyan-600;
+  }
+
   .code {
     @apply bg-gray-200 rounded-md p-4 shadow-sm;
   }

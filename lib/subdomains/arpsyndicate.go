@@ -15,7 +15,7 @@ func GetSubdomainsARPSyndicate(domain string) (Subdomains, error) {
 
 	if domain == "" {
 		return Subdomains{
-			List:   make([]string, 0),
+			List: make([]SubdomainElement, 0),
 		}, nil
 	}
 	_, err := client.R().
@@ -26,11 +26,17 @@ func GetSubdomainsARPSyndicate(domain string) (Subdomains, error) {
 		SetResult(&subdomainRes).
 		Get("https://api.subdomain.center")
 
-	for i, sub := range subdomainRes {
-		subdomainRes[i] = fmt.Sprintf("http://%s", sub)
+	subdomainRes = utils.UniqueNonEmptyElementsOf(subdomainRes)
+
+	outList := make([]SubdomainElement, 0)
+	for _, el := range subdomainRes {
+		outList = append(outList, SubdomainElement{
+			Hostname: fmt.Sprintf("%s%s", SUBDOMAINS_PREFIX, el), 
+			Domain: el,
+		})
 	}
 
 	return Subdomains{
-		List:   subdomainRes,
+		List: outList,
 	}, err
 }
