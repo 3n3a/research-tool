@@ -43,3 +43,26 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+  scc_deploy:
+    name: deploy to server
+    runs-on: ubuntu-latest
+    steps:
+      - id: pull-image
+        uses: 3n3a/server-control-client@v1
+        with:
+          key: ${{ secrets.SCC_KEY }}
+          base_url: ${{ secrets.SCC_BASE_URL }}
+          command: image_pull
+          option: docker.io/3n3a/research-tool:latest
+          user_agent: ${{ secrets.SCC_UA }}
+          extra_headers: ${{ secrets.SCC_EXTRA_HEADERS }}
+      - id: restart-service
+        uses: 3n3a/server-control-client@v1
+        with:
+          key: ${{ secrets.SCC_KEY }}
+          base_url: ${{ secrets.SCC_BASE_URL }}
+          command: service_restart
+          option: ${{ secrets.SCC_SERVICE }}
+          user_agent: ${{ secrets.SCC_UA }}
+          extra_headers: ${{ secrets.SCC_EXTRA_HEADERS }}
+
