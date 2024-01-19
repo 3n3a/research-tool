@@ -45,6 +45,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
   scc_deploy:
     name: deploy to server
+    needs: docker
     runs-on: ubuntu-latest
     steps:
       - id: pull-image
