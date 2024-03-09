@@ -58,4 +58,12 @@
   .code {
     @apply bg-gray-200 rounded-md p-4 shadow-sm;
   }
+
+  .status-false,.status-failure {
+    @apply bg-red-200 text-red-800 rounded-md px-2;
+  }
+
+  .status-true,.status-success {
+    @apply bg-green-200 text-green-800 rounded-md px-2;
+  }
 }

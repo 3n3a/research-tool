@@ -8,7 +8,7 @@ import (
 )
 
 const (
- CLIENT_IP_HEADER = "CF-Connecting-IP"
+	CLIENT_IP_HEADER = "CF-Connecting-IP"
 )
 
 func SetupIP() {
@@ -21,17 +21,19 @@ func IPLookup(c *fiber.Ctx) error {
 	ipaddr := c.Query("ipaddr")
 	additionalInfo := common.IPPage{}
 
- // TODO: IP / Domain validation
- if len(ipaddr) < 4 {
-  // set to users ip
-  ipaddr = c.Get(CLIENT_IP_HEADER)
- }
+	// TODO: IP / Domain validation
+	if len(ipaddr) < 4 {
+		// set to users ip
+		ipaddr = c.Get(CLIENT_IP_HEADER)
+	}
 
 	ipres, err := ip.LookupIPInfo(ipaddr)
 	if err != nil {
 		pageInfo.Message = err.Error()
 		return common.RenderView(c, pageInfo, additionalInfo, "IP Lookup", "error")
 	}
+	
 	additionalInfo.IPInfo = ipres
+
 	return common.RenderView(c, pageInfo, additionalInfo, "IP Lookup", "ip")
 }
