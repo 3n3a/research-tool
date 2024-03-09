@@ -39,7 +39,7 @@ type IPRes struct {
 func LookupIPInfo(ipaddr string) (IPRes, error) {
 	client := utils.NewHTTPClient()
 
- if (len(ipaddr) < 3) {
+ if len(ipaddr) < 4 {
    return IPRes{}, nil
  }
 
