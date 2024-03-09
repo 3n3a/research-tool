@@ -39,6 +39,10 @@ type IPRes struct {
 func LookupIPInfo(ipaddr string) (IPRes, error) {
 	client := utils.NewHTTPClient()
 
+ if (len(ipaddr) < 3) {
+   return IPRes{}, nil
+ }
+
 	resp, err := client.R().
 		SetQueryParams(map[string]string{
             "fields": "66846719", // all fields
