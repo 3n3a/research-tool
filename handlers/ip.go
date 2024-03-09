@@ -23,5 +23,5 @@ func IPLookup(c *fiber.Ctx) error {
 		return common.RenderView(c, pageInfo, additionalInfo, "IP Lookup", "error")
 	}
 	additionalInfo.IPInfo = ipres
-	return common.RenderView(c, pageInfo, additionalInfo, "IP Lookup", "ip-address")
+	return common.RenderView(c, pageInfo, additionalInfo, "IP Lookup", "ip")
 }
