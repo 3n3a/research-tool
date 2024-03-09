@@ -21,6 +21,7 @@ func SetupPage(version string, currentApp *fiber.App) {
 	SetupDns()
 	SetupEncoding()
 	SetupSubdomains()
+ SetupIP()
 
 	pageInfo.SortMenu()
 }
