@@ -4,6 +4,7 @@ import (
 	"slices"
 
 	"github.com/3n3a/research-tool/lib/dns"
+	"github.com/3n3a/research-tool/lib/ip"
 	"github.com/3n3a/research-tool/lib/subdomains"
 	"github.com/gofiber/fiber/v2"
 )
@@ -68,6 +69,10 @@ type EncodingPage struct {
 type SubdomainPage struct {
 	Subdomains subdomains.Subdomains
 	SubdomainSources subdomains.SubdomainSources
+}
+
+type IPPage struct {
+	IPInfo ip.IPRes
 }
 
 func (p *Page) SortMenu() {
