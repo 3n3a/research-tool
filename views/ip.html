@@ -11,10 +11,36 @@
 <h2 class="text-2xl py-2 pt-4">Response</h2>
 
 <div class="w-full overflow-auto p-4 pb-8 flex flex-col items-start">
-        <div class="shadow-md p-4 rounded-md flex flex-row gap-4 w-full">
-            <div class="">
-                <p class="text-xl custom-wrap w-full"><span class="font-bold">Status</span>: {{.other.IPInfo.Status}}</p>
-                <p class="text-xl custom-wrap w-full"><span class="font-bold">Continent</span>: {{.other.IPInfo.Continent}}</p>
-            </div>
+    <div class="shadow-md p-4 rounded-md flex flex-row gap-4 w-full">
+        <div class="">
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Query</span>: {{.other.IPInfo.Query}}</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Status</span>: <span class="status-{{.other.IPInfo.Status}}">{{.other.IPInfo.Status}}</span></p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Continent</span>: {{.other.IPInfo.Continent}}
+                ({{.other.IPInfo.ContinentCode}})</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Country</span>: {{.other.IPInfo.Country}}
+                ({{.other.IPInfo.CountryCode}})</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Region</span>: {{.other.IPInfo.RegionName}}
+                ({{.other.IPInfo.Region}})</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">City</span>: {{.other.IPInfo.City}}</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">District</span>: {{.other.IPInfo.District}}
+            </p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Zip</span>: {{.other.IPInfo.Zip}}</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Lat</span>: {{.other.IPInfo.Lat}}</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Lon</span>: {{.other.IPInfo.Lon}}</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Timezone</span>: {{.other.IPInfo.Timezone}}
+            </p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Offset</span>: {{.other.IPInfo.Offset}}</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Currency</span>: {{.other.IPInfo.Currency}}
+            </p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">ISP</span>: {{.other.IPInfo.Isp}}</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Organization</span>: {{.other.IPInfo.Org}}</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">AS Number</span>: {{.other.IPInfo.As}}</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">AS Name</span>: {{.other.IPInfo.AsName}}</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Reverse Lookup</span>:
+                {{.other.IPInfo.Reverse}}</p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Mobile</span>: <span class="status-{{.other.IPInfo.Mobile}}">{{.other.IPInfo.Mobile}}</span></p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Proxy</span>: <span class="status-{{.other.IPInfo.Proxy}}">{{.other.IPInfo.Proxy}}</span></p>
+            <p class="text-xl custom-wrap w-full"><span class="font-bold">Hosting</span>: <span class="status-{{.other.IPInfo.Hosting}}">{{.other.IPInfo.Hosting}}</span></p>
         </div>
+    </div>
 </div>
