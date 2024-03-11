@@ -24,6 +24,7 @@ type IPRes struct {
 	Lat           float64 `json:"lat"`
 	Lon           float64 `json:"lon"`
 	Timezone      string  `json:"timezone"`
+	// TODO: offset == timezone +/- gmt, divide by 3600 and get +/- value
 	Offset        int     `json:"offset"`
 	Currency      string  `json:"currency"`
 	Isp           string  `json:"isp"`
