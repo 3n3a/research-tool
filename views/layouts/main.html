@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ .page.Title }} - {{ .page.AppName }}</title>
-    {{ getCssAsset "app.css" }} {{ template "imports/scripts" .}}
+    <link rel="icon" href="/public/assets/icon.svg" style="color: #4d7c0f;">
+    <link rel="mask-icon" href="/public/assets/icon.svg" color="#4d7c0f">
+    {{ getCssAsset "app.css" }}
+    {{ template "imports/scripts" .}}
   </head>
 
   <body hex-ext="morphdom-swap" class="site">
