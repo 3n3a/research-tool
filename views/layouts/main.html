@@ -1,58 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ .page.Title }} - {{ .page.AppName }}</title>
-    {{ getCssAsset "app.css" }}
-    {{ template "imports/scripts" .}}
-</head>
+    {{ getCssAsset "app.css" }} {{ template "imports/scripts" .}}
+  </head>
 
-<body 
-hex-ext="morphdom-swap"
-class="flex flex-col bg-white min-w-screen min-h-screen place-content-center text-white">
-    {{template "partials/header" .}}
-
-    {{if eq .page.Version "devel"}}
-        <details class="px-4">
-            <summary class="text-black">
-                Debug
-            </summary>
-            <div>
-                <p class="text-wrap text-black">
-                    {{. | printf "%#v"}}
-                </p>
-            </div>
-        </details>
+  <body hex-ext="morphdom-swap" class="site">
+    {{template "partials/header" .}} {{if eq .page.Version "devel"}}
+    <details class="px-4">
+      <summary class="text-black">Debug</summary>
+      <div>
+        <p class="text-wrap text-black">{{. | printf "%#v"}}</p>
+      </div>
+    </details>
     {{end}}
 
-    <div class="flex flex-col md:flex-row flex-grow">
-        <div class="flex flex-row md:flex-col md:w-[20%] bg-gray-800 overflow-auto" hx-boos="true">
-            {{range .page.MenuItems}}
-                {{if .Active}}
-                <div class="flex md:flex-row bg-gray-700 hover:bg-gray-600">
-                    <a class="p-4 w-full" href="{{ .Link }}">
-                        {{ .Name }}
-                    </a>
+    <div class="row-grow">
+      <div
+        class="menu-container"
+        hx-boost="true"
+      >
+        {{range .page.MenuItems}} 
+            {{if .Active}}
+                <div class="menu-item-active">
+                <a class="p-4 w-full" href="{{ .Link }}"> {{ .Name }} </a>
                 </div>
-                {{else}}
-                <div class="flex md:flex-row hover:bg-gray-600">
-                    <a class="p-4 w-full" href="{{ .Link }}">
-                        {{ .Name }}
-                    </a>
+            {{else}}
+                <div class="menu-item">
+                <a class="p-4 w-full" href="{{ .Link }}"> {{ .Name }} </a>
                 </div>
-                {{end}}
             {{end}}
-        </div>
+        {{end}}
+      </div>
 
-        <div class="flex flex-row md:flex-col flex-grow py-2 px-2 md:p-8">
-            <div class="flex-grow text-black">
-                <h1 class="page-title">{{ .page.Title }}</h1>
-                {{embed}}
-            </div>
+      <div class="responsive-container">
+        <div class="flex-grow text-black">
+          <h1 class="page-title">{{ .page.Title }}</h1>
+          {{embed}}
         </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

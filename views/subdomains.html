@@ -1,4 +1,4 @@
-<h2 class="text-2xl">Search</h2>
+<h2 class="part-title">Search</h2>
 <form
   id="subdomain-form"
   hx-post="/subdomains"
@@ -6,7 +6,7 @@
   hx-target="#subdomains-results"
   hx-trigger="load[allFilledSubdomainsForm()], submit[allFilledSubdomainsForm()]"
   hx-on::before-request="showEl('#loading-indicator'); cleanEls('.subdomain-list-element')"
-  class="flex flex-col flex-wrap md:flex-row gap-2"
+  class="flex flex-col flex-wrap md:flex-row"
 >
   <div class="input-container">
     <label for="domain">Domain</label>
@@ -24,28 +24,26 @@
     <label for="type">Subdomains Source </label>
     <select name="source" id="source" class="text-input" required>
       <option disabled selected>Select a source</option>
-      {{range $key, $value := .other.SubdomainSources}} 
+      {{range $key, $value := .other.SubdomainSources}}
         {{if eq $key $.other.Subdomains.Source}}
           <option value="{{$key}}" selected>{{$value}}</option>
-          {{else}}
+        {{else}}
           <option value="{{$key}}">{{$value}}</option>
-        {{end}}
+        {{end}} 
       {{end}}
     </select>
   </div>
-  <button class="default-button" type="submit">
-    Search
-  </button>
+  <button class="default-button" type="submit">Search</button>
 </form>
 
-<h2 class="text-2xl pt-4">
+<h2 class="part-title-other">
   Subdomains of: <strong>{{.other.Subdomains.Domain}}</strong>
 </h2>
 
 <div
-id="subdomains-results"
-class="max-h-[70vh] w-full flex flex-col items-start overflow-y-auto border-2 p-2 md:p-4 gap-2 rounded-md"
+  id="subdomains-results"
+  class="max-h-[70vh] w-full flex flex-col items-start overflow-y-auto border-2 p-2 md:p-4 gap-2 rounded-md"
 >
+  <!-- TODO: add fuzzy search in frontend for result set -->
   {{template "partials/loading-dark" false}}
 </div>
-

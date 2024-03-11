@@ -1,5 +1,5 @@
-<h2 class="text-2xl">Decode {{.other.BaseType}}</h2>
-<form id="coding-form" method="post" class="flex flex-col flex-wrap md:flex-row gap-2">
+<h2 class="part-title">Decode {{.other.BaseType}}</h2>
+<form id="coding-form" method="post" class="flex flex-col flex-wrap md:flex-row">
     <div class="input-container">
         <label for="input">Input Text </label>
         <input type="text" name="input" id="input" required value="{{.other.BaseInput}}" class="text-input"
@@ -17,11 +17,21 @@
     <button class="default-button" type="submit">Decode</button>
 </form>
 
-<h2 class="text-2xl py-2 pt-4">Response</h2>
+<h2 class="part-title-other">Response</h2>
 
-<div class="w-full overflow-auto p-4 pb-8 flex flex-col items-start">
-    <button class="default-button mb-4" onclick="htmx.find('#input').value = '{{.other.BaseResult}}'; htmx.find('#coding-form').submit()">Again?</button>
-    <p class="custom-wrap code w-full">
-        {{.other.BaseResult}}
-    </p>
+<div class="response-card">
+    <div class="response-card-inner">
+        <div class="w-full">
+            <button class="default-button mb-4" onclick="htmx.find('#input').value = '{{.other.BaseResult}}'; htmx.find('#coding-form').submit()">Again?</button>
+            
+            <p class="custom-wrap code w-full">
+                {{if eq .other.BaseResult ""}}
+                    <span class="text-gray-500 italic select-none">Nothing found</span>
+                {{else}}
+                    <span class="select-all">{{.other.BaseResult}}</span>
+                {{end}}
+            </p>
+        </div>
+
+    </div>
 </div>
