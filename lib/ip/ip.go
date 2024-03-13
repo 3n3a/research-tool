@@ -37,6 +37,10 @@ type IPRes struct {
 	Hosting       bool    `json:"hosting"`
 }
 
+func (i *IPRes) CalcOffset() {
+	i.Offset = i.Offset / 3600
+}
+
 func LookupIPInfo(ipaddr string) (IPRes, error) {
 	client := utils.NewHTTPClient()
 
@@ -53,6 +57,8 @@ func LookupIPInfo(ipaddr string) (IPRes, error) {
 		Get("http://ip-api.com/json/" + ipaddr)
 
 	ipres := *(resp.Result().(*IPRes))
+
+	ipres.CalcOffset()
 
 	return ipres, err
 }

@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"strings"
+
 	"github.com/gofiber/fiber/v2"
 
 	common "github.com/3n3a/research-tool/lib/common"
@@ -19,6 +21,8 @@ func SetupIP() {
 // IP Lookup
 func IPLookup(c *fiber.Ctx) error {
 	ipaddr := c.Query("ipaddr")
+	ipaddr = strings.TrimSpace(ipaddr)
+	
 	additionalInfo := common.IPPage{}
 
 	// TODO: IP / Domain validation
