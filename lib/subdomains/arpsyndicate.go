@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	utils "github.com/3n3a/research-tool/lib/utils"
+	"github.com/smirzaei/parallel"
 )
 
 type SubdomainResARPSyndicate []string
@@ -29,12 +30,12 @@ func GetSubdomainsARPSyndicate(domain string) (Subdomains, error) {
 	subdomainRes = utils.UniqueNonEmptyElementsOf(subdomainRes)
 
 	outList := make([]SubdomainElement, 0)
-	for _, el := range subdomainRes {
+	parallel.ForEach(subdomainRes, func(el string) {
 		outList = append(outList, SubdomainElement{
 			Hostname: fmt.Sprintf("%s%s", SUBDOMAINS_PREFIX, el), 
 			Domain: el,
 		})
-	}
+	})
 
 	return Subdomains{
 		List: outList,
