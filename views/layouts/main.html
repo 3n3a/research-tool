@@ -6,12 +6,13 @@
     <title>{{ .page.Title }} - {{ .page.AppName }}</title>
     <link rel="icon" href="/public/assets/icon.svg" style="color: #4d7c0f;">
     <link rel="mask-icon" href="/public/assets/icon.svg" color="#4d7c0f">
-    {{ getCssAsset "app.css" }}
+    {{ template "imports/styles" .}}
     {{ template "imports/scripts" .}}
   </head>
 
   <body hex-ext="morphdom-swap" class="site">
-    {{template "partials/header" .}} {{if eq .page.Version "devel"}}
+    {{template "partials/header" .}} 
+    {{if eq .page.Version "devel"}}
     <details class="px-4">
       <summary class="text-black">Debug</summary>
       <div>

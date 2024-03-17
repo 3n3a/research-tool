@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -99,7 +100,39 @@ func (a *AppConfig) setupServer() {
 		return
 	})
 
- // TODO: add get CSS/JS so output is inline JS/CSS
+	engine.AddFunc("getCssInline", func(name string) (res template.HTML) {
+		filepath.Walk("public/assets", func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			if info.Name() == name {
+				data, err := ioutil.ReadFile(path)
+				if err != nil {
+					return err	
+				}
+				res = template.HTML("<style>" + string(data) + "</style>")
+			}
+			return nil
+		})
+		return
+	})
+
+	engine.AddFunc("getJsInline", func(name string) (res template.HTML) {
+		filepath.Walk("public/assets", func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			if info.Name() == name {
+				data, err := ioutil.ReadFile(path)
+				if err != nil {
+					return err	
+				}
+				res = template.HTML("<script>" + string(data) + "</script>")
+			}
+			return nil
+		})
+		return
+	})
 
 	// Create fiber app
 	app := fiber.New(fiber.Config{
