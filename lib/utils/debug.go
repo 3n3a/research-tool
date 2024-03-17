@@ -1,6 +1,9 @@
 package utils
 
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
 const (
 	ENV_NAME = "ENVIRONMENT"
@@ -12,4 +15,10 @@ func IsDev() bool {
 		return false
 	}
 	return true
+}
+
+func DevPrint(where string, input string) {
+	if IsDev() {
+		fmt.Printf("%s: %s\n", where, input)
+	}
 }
