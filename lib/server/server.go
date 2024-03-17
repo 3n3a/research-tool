@@ -99,6 +99,8 @@ func (a *AppConfig) setupServer() {
 		return
 	})
 
+ // TODO: add get CSS/JS so output is inline JS/CSS
+
 	// Create fiber app
 	app := fiber.New(fiber.Config{
 		Views:       engine,
