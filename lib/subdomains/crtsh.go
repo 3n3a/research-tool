@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	utils "github.com/3n3a/research-tool/lib/utils"
+	"github.com/smirzaei/parallel"
 )
 
 type SubdomainCRTSH struct {
@@ -59,12 +60,12 @@ func GetSubdomainsCRTSH(domain string) (Subdomains, error) {
 	list = utils.UniqueNonEmptyElementsOf(list)
 
 	outList := make([]SubdomainElement, 0)
-	for _, el := range list {
+	parallel.ForEach(list, func(el string) {
 		outList = append(outList, SubdomainElement{
 			Hostname: fmt.Sprintf("%s%s", SUBDOMAINS_PREFIX, el),
 			Domain: el,
 		})
-	}
+	})
 
 	return Subdomains{
 		List:   outList,

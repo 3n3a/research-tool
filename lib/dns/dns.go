@@ -3,6 +3,7 @@ package dns
 import (
 	"github.com/3n3a/research-tool/lib/ip"
 	"github.com/3n3a/research-tool/lib/utils"
+	"github.com/smirzaei/parallel"
 )
 
 type DNSQuestion struct {
@@ -45,16 +46,21 @@ type DNSRes struct {
     Answer []DNSAnswer
 }
 
+const (
+	LOOKUP_CONCURRENCY_LIMIT = 10
+)
+
 func LookupAnyDNSRecord(name string) (DNSRes, error) {
 	var res DNSRes
 	var err error
-	for _, dnstype := range GetDNSTypes() {
+
+	parallel.ForEachLimit(GetDNSTypes(), LOOKUP_CONCURRENCY_LIMIT, func(dnstype string) {
 		if dnstype != "ANY" {
 			tempRes, tempErr := LookupDNSRecord(name, dnstype)
 			res.Answer = append(res.Answer, tempRes.Answer...)
 			err = tempErr
 		}
-	}
+	})
 
 	res.DNSDomain = name
 	res.DNSType = "ANY"
@@ -93,12 +99,13 @@ func LookupDNSRecord(name string, dnstype string) (DNSRes, error) {
 	dnsres.DNSType = dnstype
 
 	// process dns answers array
-	for i, answer := range dnsres.Answer {
+	var processedAnswers []DNSAnswer
+	parallel.ForEach(dnsres.Answer, func(answer DNSAnswer) {
 		answer.TransformType()
 		answer.CalculateDisplayType()
-		dnsres.Answer[i] = answer
-	}
-
+		processedAnswers = append(processedAnswers, answer)
+	})
+	dnsres.Answer = processedAnswers
 
 	return dnsres, err
 }

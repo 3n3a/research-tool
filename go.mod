@@ -6,15 +6,14 @@ require (
 	github.com/ada-url/goada v0.0.0-20231107114738-49a08e97123d
 	github.com/gofiber/fiber/v2 v2.52.2
 	github.com/gofiber/template/html/v2 v2.1.1
+	github.com/muonsoft/validation v0.17.0
+	github.com/smirzaei/parallel v1.1.0
 )
 
 require (
-	github.com/muonsoft/language v0.3.1 // indirect
-	github.com/muonsoft/validation v0.17.0 // indirect
 	github.com/philhofer/fwd v1.1.2 // indirect
 	github.com/tinylib/msgp v1.1.9 // indirect
 	golang.org/x/net v0.22.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
 )
 
 require (
