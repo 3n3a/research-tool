@@ -2,9 +2,8 @@ package ip
 
 import (
 	"github.com/3n3a/research-tool/lib/utils"
+	"github.com/muonsoft/validation/validate"
 )
-
-// todo: add ip info
 
 // api here: http://ip-api.com/json/{query}?fields=66846719
 // docs: https://ip-api.com/docs/api:json
@@ -24,7 +23,6 @@ type IPRes struct {
 	Lat           float64 `json:"lat"`
 	Lon           float64 `json:"lon"`
 	Timezone      string  `json:"timezone"`
-	// TODO: offset == timezone +/- gmt, divide by 3600 and get +/- value
 	Offset        int     `json:"offset"`
 	Currency      string  `json:"currency"`
 	Isp           string  `json:"isp"`
@@ -44,13 +42,13 @@ func (i *IPRes) CalcOffset() {
 func LookupIPInfo(ipaddr string) (IPRes, error) {
 	client := utils.NewHTTPClient()
 
- if len(ipaddr) < 4 {
-   return IPRes{}, nil
- }
+	if len(ipaddr) < 4 {
+		return IPRes{}, nil
+	}
 
 	resp, err := client.R().
 		SetQueryParams(map[string]string{
-            "fields": "66846719", // all fields
+			"fields": "66846719", // all fields
 		}).
 		SetHeader("Accept", "application/json").
 		SetResult(&IPRes{}).
@@ -61,4 +59,9 @@ func LookupIPInfo(ipaddr string) (IPRes, error) {
 	ipres.CalcOffset()
 
 	return ipres, err
+}
+
+func ValidIP(inputIP string) bool {
+	err := validate.IP(inputIP)
+	return err == nil
 }

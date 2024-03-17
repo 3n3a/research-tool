@@ -9,9 +9,12 @@ require (
 )
 
 require (
+	github.com/muonsoft/language v0.3.1 // indirect
+	github.com/muonsoft/validation v0.17.0 // indirect
 	github.com/philhofer/fwd v1.1.2 // indirect
 	github.com/tinylib/msgp v1.1.9 // indirect
 	golang.org/x/net v0.22.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 )
 
 require (

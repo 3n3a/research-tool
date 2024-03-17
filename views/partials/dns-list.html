@@ -15,8 +15,11 @@
             </div>
             <div class="">
                 <p class="text-xl custom-wrap w-full"><span class="font-bold">TTL</span>: {{.TTL}}</p>
-                <!-- TODO: if ip in data, then create link to ip lookup page -->
+                {{if eq .DisplayType "ipaddr"}}
+                <p class="text-xl custom-wrap w-full"><span class="font-bold">Data</span>: <a class="underline" target="_blank" href="/ip-address?ipaddr={{.Data}}">{{.Data}}</a></p>
+                {{else}}
                 <p class="text-xl custom-wrap w-full"><span class="font-bold">Data</span>: {{.Data}}</p>
+                {{end}}
             </div>
         </div>
     </div>
