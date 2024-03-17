@@ -3,6 +3,7 @@ module github.com/3n3a/research-tool
 go 1.21
 
 require (
+	github.com/ada-url/goada v0.0.0-20231107114738-49a08e97123d
 	github.com/gofiber/fiber/v2 v2.52.2
 	github.com/gofiber/template/html/v2 v2.1.1
 )

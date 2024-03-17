@@ -6,6 +6,7 @@ import "htmx.org/dist/ext/morphdom-swap"
 
 /* All Fields Filled */
 window.allFilledSubdomainsForm = () => window.allFilled("#subdomain-form")
+window.allFilledDnsForm = () => window.allFilled("#dns-form")
 window.allFilled = function (formSelector) {
   // Check if all form fields are filled
   const form = document.querySelector(formSelector);
@@ -23,7 +24,7 @@ window.allFilled = function (formSelector) {
 
 // Show Element by Selector
 window.showEl = (elSelector) => {
-  htmx.find(elSelector).hidden = false
+  htmx.find(elSelector).style.display = 'block'
 }
 
 // Remove Elements by Selector
@@ -33,9 +34,9 @@ window.cleanEls = (elSelector) => {
 
 htmx.onLoad(() => {
   // Hide Loading Indicator if Empty Form
-  if (!allFilledSubdomainsForm()) {
+  if (!allFilledSubdomainsForm() || !allFilledDnsForm()) {
     htmx.findAll('#loading-indicator').forEach(e => {
-      e.hidden = true;
+      e.style.display = 'none'
     })
   }
 })

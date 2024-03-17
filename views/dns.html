@@ -1,5 +1,13 @@
 <h2 class="part-title">Search</h2>
-<form method="get" class="flex flex-col flex-wrap md:flex-row">
+<form 
+    id="dns-form"
+    hx-post="/dns"
+    hx-swap="morphdom"
+    hx-target="#dns-results"
+    hx-trigger="load[allFilledDnsForm()], submit[allFilledDnsForm()]"
+    hx-on::before-request="showEl('#loading-indicator'); cleanEls('.response-card')"
+    class="flex flex-col flex-wrap md:flex-row"
+>
     <div class="input-container">
         <label for="domain">Domain </label>
         <input type="text" name="domain" id="domain" required value="{{.other.DNSRes.DNSDomain}}" class="text-input"
@@ -24,27 +32,6 @@
 
 <h2 class="part-title-other">Response</h2>
 
-<div class="response-card-outer">
-    {{if not .other.DNSRes.Answer}}
-        <div class="response-card">
-            <div class="response-card-inner gap-4">
-                <span class="text-gray-500">Nothing found</span>
-            </div>
-        </div>
-    {{else}}
-        {{range .other.DNSRes.Answer}}
-        <div class="response-card">
-            <div class="response-card-inner gap-4">
-                <div class="flex flex-col items-center justify-center">
-                    <p class="text-xl font-bold">{{.HumanType}}</p>
-                </div>
-                <div class="">
-                    <p class="text-xl custom-wrap w-full"><span class="font-bold">TTL</span>: {{.TTL}}</p>
-                    <!-- TODO: if ip in data, then create link to ip lookup page -->
-                    <p class="text-xl custom-wrap w-full"><span class="font-bold">Data</span>: {{.Data}}</p>
-                </div>
-            </div>
-        </div>
-        {{end}}
-    {{end}}
+<div class="response-card-outer loading-parent" id="dns-results">
+    {{template "partials/loadingv2" false}}
 </div>
