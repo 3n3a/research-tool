@@ -7,6 +7,7 @@ import (
 
 	common "github.com/3n3a/research-tool/lib/common"
 	subdomains "github.com/3n3a/research-tool/lib/subdomains"
+	"github.com/3n3a/research-tool/lib/utils"
 )
 
 func SetupSubdomains() {
@@ -30,9 +31,19 @@ func Subdomains(c *fiber.Ctx) error {
 
 // SubdomainsList
 func SubdomainsList(c *fiber.Ctx) error {
-	domain := c.FormValue("domain")
+	domainRaw := c.FormValue("domain")
 	source := c.FormValue("source", "crtsh")
 	additionalInfo := common.SubdomainPage{}
+
+	var domain string
+	var err error
+	domain, err = utils.GetHostname(domainRaw)
+	if err != nil {
+		pageInfo.Message = err.Error()
+		utils.DevPrint("get hostname", pageInfo.Message)
+		return common.RenderElem(c, pageInfo, additionalInfo, "error")
+	}
+	utils.DevPrint("get hostname", domain)
 
 	subdomainsRes, err := subdomains.GetSubdomains(domain, source)
 	if err != nil {

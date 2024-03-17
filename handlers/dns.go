@@ -37,13 +37,13 @@ func DNSResolve(c *fiber.Ctx) error {
 	var err error
 	var dnsres dns.DNSRes
 
-	domain = c.FormValue("domain")
+	domainRaw := c.FormValue("domain")
 	dnstype := c.FormValue("type")
 	additionalInfo := common.DnsPage{}
 
-	if domain != "" || dnstype != "" {
+	if domainRaw != "" || dnstype != "" {
 		// get domain from input
-		domain, err = utils.GetHostname(domain)
+		domain, err = utils.GetHostname(domainRaw)
 		if err != nil {
 			pageInfo.Message = err.Error()
 			utils.DevPrint("get hostname", pageInfo.Message)
