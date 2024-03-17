@@ -1,6 +1,7 @@
 package dns
 
 import (
+	"github.com/3n3a/research-tool/lib/ip"
 	"github.com/3n3a/research-tool/lib/utils"
 )
 
@@ -13,12 +14,21 @@ type DNSAnswer struct {
     Name string `json:"name"`
     Type int `json:"type"`
 	HumanType string `json:"human_type"`
-    TTL int
+	DisplayType string `json:"-"`
+    TTL int `json:"TTL"`
     Data string `json:"data"`
 }
 
 func (d *DNSAnswer) TransformType() {
 	d.HumanType = GetResourceRecordType(d.Type)
+}
+
+func (d *DNSAnswer) CalculateDisplayType() {
+	if ip.ValidIP(d.Data) {
+		d.DisplayType = "ipaddr"
+	} else {
+		d.DisplayType = ""
+	}
 }
 
 type DNSRes struct {
@@ -85,6 +95,7 @@ func LookupDNSRecord(name string, dnstype string) (DNSRes, error) {
 	// process dns answers array
 	for i, answer := range dnsres.Answer {
 		answer.TransformType()
+		answer.CalculateDisplayType()
 		dnsres.Answer[i] = answer
 	}
 
