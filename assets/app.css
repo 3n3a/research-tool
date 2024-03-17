@@ -121,4 +121,17 @@
   .response-card-inner {
     @apply flex flex-row w-full px-4 py-3 md:px-0 md:py-0;
   }
+
+  /* Loading Related */
+  .loading-parent {
+    @apply relative;
+  }
+
+  .loading-outer {
+    @apply absolute inset-0 bg-black bg-opacity-50 z-50 flex items-center rounded-md p-8;
+  }
+
+  .loading-container {
+    @apply w-full overflow-auto flex flex-col items-center min-h-64;
+  }
 }
