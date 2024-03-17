@@ -19,7 +19,7 @@ func Normalize(inputUrl string) (string, error) {
 
 func GetHostname(inputUrl string) (string, error) {
 	// prepend http if only domain
-	if !strings.Contains(inputUrl, "http://") || !strings.Contains(inputUrl, "https://") {
+	if !(strings.Contains(inputUrl, "http://") || strings.Contains(inputUrl, "https://")) {
 		inputUrl = fmt.Sprintf("http://%s", inputUrl)
 	}
 	
