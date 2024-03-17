@@ -15,12 +15,12 @@ WORKDIR /go/src/app
 COPY . .
 COPY --from=css /app/public/assets/ ./public/assets
 
-RUN go mod download
+RUN go mod download && go get
 
 # RUN go install github.com/swaggo/swag/cmd/swag@latest && \
 #     swag init # gen docs before building
 
-RUN CGO_ENABLED=0 go build -ldflags "-X main.version=$(git tag --sort=taggerdate | tail -1)" -buildvcs=false -o /go/bin/app
+RUN go build -ldflags "-X main.version=$(git tag --sort=taggerdate | tail -1)" -buildvcs=false -o /go/bin/app
 
 # Now copy it into our base image.
 FROM gcr.io/distroless/static-debian11
