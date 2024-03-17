@@ -20,7 +20,7 @@ RUN go mod download && go get
 # RUN go install github.com/swaggo/swag/cmd/swag@latest && \
 #     swag init # gen docs before building
 
-RUN go build -ldflags "-X main.version=$(git tag --sort=taggerdate | tail -1)" -buildvcs=false -o /go/bin/app
+RUN go build -ldflags "-X main.version=$(git tag --sort=taggerdate | tail -1) -extldflags=-static" -buildvcs=false -o /go/bin/app
 
 # Now copy it into our base image.
 FROM gcr.io/distroless/static-debian11
