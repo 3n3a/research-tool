@@ -1,8 +1,8 @@
 package dns
 
 import (
-	"github.com/3n3a/research-tool/lib/ip"
 	"github.com/3n3a/research-tool/lib/utils"
+	"github.com/3n3a/research-tool/modules/ip"
 	"github.com/smirzaei/parallel"
 )
 
