@@ -1,19 +1,8 @@
-# Start by building the application.
-FROM node:20 as css
-
-WORKDIR /app
-COPY package*.json .
-RUN npm i
-
-COPY . .
-RUN npm run build
-
 # Build Golang App
 FROM golang:1.22 as build
 
 WORKDIR /go/src/app
 COPY . .
-COPY --from=css /app/public/assets/ ./public/assets
 
 RUN go mod download && go get
 
@@ -25,8 +14,6 @@ RUN go build -ldflags "-X main.version=$(git tag --sort=taggerdate | tail -1) -e
 # Now copy it into our base image.
 FROM gcr.io/distroless/static-debian11
 COPY --from=build /go/bin/app /
-COPY --from=build /go/src/app/views/ /views
-COPY --from=build /go/src/app/public/ /public
 
 ENV ENVIRONMENT="prod"
 
