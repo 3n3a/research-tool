@@ -1,22 +1,36 @@
 package main
 
 import (
-	"time"
-
-	server "github.com/3n3a/research-tool/lib/server"
+	"github.com/3n3a/research-tool/modules/dns"
+	"github.com/3n3a/research-tool/modules/subdomains"
+	"github.com/3n3a/research-tool/modules/ip"
+	"github.com/3n3a/wapp"
 )
 
 var version string
-var appConfig = server.AppConfig{
-	CACHE_INCLUDE_RAW: "/public/*;/subdomains*",
-	CACHE_LENGTH: 30 * time.Minute,
-	APP_PORT: 3000,
-	APP_STATIC_FILES: "./public",
-	APP_VIEW_FILES:"./views",
-	VERSION: version,
-}
-
 
 func main() {
-	appConfig.Setup()
+	// with config
+	w := wapp.New(wapp.Config{
+		Name: "Research Tool",
+		CoreModules: []wapp.CoreModule{
+			wapp.Recover,
+			wapp.Logger,
+			wapp.CORS,
+			wapp.Compress,
+			wapp.Cache,
+		},
+		Version: version,
+		DebugMode: false,
+	})
+	
+	// Register Lowest Level Modules (not Submodules)
+	w.Register(
+		subdomains.New(),
+		dns.New(),
+		ip.New(),
+	)
+
+	// Start
+	w.Start()
 }

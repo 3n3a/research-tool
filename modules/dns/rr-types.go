@@ -1,5 +1,7 @@
 package dns
 
+import "github.com/3n3a/wapp"
+
 // https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4
 // Download as CSV + add column with `=CONCAT(B2, ": """, A2, """,")`
 
@@ -107,7 +109,6 @@ func GetResourceRecordType(recordNum int) string {
 	return GetResourceRecordTypes()[recordNum]
 }
 
-// Only the most common dns types
 func GetDNSTypes() []string {
 	DNS_TYPE_LIST := []string{
 		"A",
@@ -136,4 +137,18 @@ func GetDNSTypes() []string {
 	}
 
 	return DNS_TYPE_LIST
+}
+
+// Only the most common dns types
+func GetDNSTypesUI() []wapp.UIChild {
+	// convert to uichildren
+	uiChildren := make([]wapp.UIChild, 0)
+	for _, dnsType := range GetDNSTypes() {
+		uiChildren = append(uiChildren, wapp.UIChild{
+			DisplayValue: dnsType,
+			Value: dnsType,
+		})
+	}
+
+	return uiChildren
 }

@@ -3,7 +3,7 @@
 tbd
 
 
-It's using [gofiber/template](https://github.com/gofiber/template), [Tailwind CSS](https://tailwindcss.com) and [Parcel](https://parceljs.org).
+It's using [wapp](3n3a/wapp).
 
 ## Additional requirements
 - node.js

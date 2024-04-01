@@ -12,7 +12,6 @@ const (
 )
 
 type SubdomainElement struct {
-	Resolvable bool
 	Domain string
 	Hostname string
 }
