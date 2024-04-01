@@ -9,7 +9,7 @@ COPY . .
 RUN npm run build
 
 # Build Golang App
-FROM golang:1.21 as build
+FROM golang:1.22 as build
 
 WORKDIR /go/src/app
 COPY . .
