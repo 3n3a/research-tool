@@ -1,8 +1,0 @@
-{{template "partials/loading-dark" true}}
-
-{{range .other.Subdomains.List}}
-  <div class="subdomain-list-element w-full flex gap-2">
-    <a href="{{.Hostname}}" target="_blank" class="link-button"> {{.Domain}}</a>
-    <a href="/dns?domain={{.Domain}}&type=A" target="_blank" class="dns-button">DNS</a>
-  </div>
-{{end}}
