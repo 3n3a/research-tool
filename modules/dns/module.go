@@ -9,6 +9,7 @@ func New() wapp.Module {
 	dns := wapp.NewModule(wapp.ModuleConfig{
 		Name: "DNS Lookup",
 		InternalName: "dns",
+		Order: 2,
 		UIInputTitle: "Search",
 		UIOutputTitle: "Response",
 		UIFields: []wapp.UIField{
@@ -57,6 +58,7 @@ func New() wapp.Module {
 			
 			return ac.RenderDataByAcceptHeader(
 				res,
+				[]string{"Data", "HumanType", "TTL"},
 				"in_out_table",
 			) 
 		}),

@@ -7,6 +7,7 @@ import (
 func New() wapp.Module {
 	subdomains := wapp.NewModule(wapp.ModuleConfig{
 		Name: "Subdomains",
+		Order: 1,
 		UIInputTitle: "Search",
 		UIOutputTitle: "Subdomains of:",
 		UIFields: []wapp.UIField{
@@ -59,6 +60,7 @@ func New() wapp.Module {
 			
 			return ac.RenderDataByAcceptHeader(
 				res,
+				[]string{"Domain", "Hostname"},
 				"in_out_table",
 			) 
 		}),
