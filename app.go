@@ -18,7 +18,7 @@ func main() {
 			wapp.Logger,
 			wapp.CORS,
 			wapp.Compress,
-			wapp.Cache,
+			// wapp.Cache,
 		},
 		Version: version,
 		DebugMode: false,

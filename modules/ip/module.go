@@ -10,6 +10,7 @@ func New() wapp.Module {
 	dns := wapp.NewModule(wapp.ModuleConfig{
 		Name: "IP Lookup",
 		InternalName: "ip",
+		Order: 3,
 		UIInputTitle: "Search",
 		UIOutputTitle: "Response",
 		UIFields: []wapp.UIField{
@@ -45,10 +46,11 @@ func New() wapp.Module {
 			
 			return ac.RenderDataByAcceptHeader(
 				res,
+				[]string{},
 				"in_out_kv",
 			) 
 		}),
 	)
-
+ 
 	return dns
 }
