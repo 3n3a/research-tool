@@ -3,7 +3,7 @@ module github.com/3n3a/research-tool
 go 1.22.0
 
 require (
-	github.com/3n3a/wapp v0.1.3
+	github.com/3n3a/wapp v0.1.4
 	github.com/ada-url/goada v0.0.0-20240402045241-5e45a5777313
 	github.com/go-resty/resty/v2 v2.12.0
 	github.com/muonsoft/validation v0.17.0
