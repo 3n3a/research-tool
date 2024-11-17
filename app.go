@@ -11,18 +11,12 @@ import (
 
 var version string
 
-// GetEnvAsUint retrieves an environment variable and parses it to a uint.
+// GetEnvAsUint16 retrieves an environment variable, parses it as uint64, and returns it as uint16.
 // If the variable is not set or can't be parsed, it returns a default value.
-func GetEnvAsUint(key string, defaultValue uint16) uint16 {
-    // Get the environment variable as a string
-    envVar := os.Getenv(key)
-    
-    // Try to parse the string to a uint
-    if value, err := strconv.ParseUint(envVar, 10, 16); err == nil {
-        return value
+func GetEnvAsUint16(key string, defaultValue uint16) uint16 {
+    if value, err := strconv.ParseUint(os.Getenv(key), 10, 64); err == nil {
+        return uint16(value) // Explicit cast to uint16
     }
-    
-    // Return the default value if parsing fails
     return defaultValue
 }
 
