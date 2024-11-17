@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"strconv"
 	"github.com/3n3a/research-tool/modules/dns"
 	"github.com/3n3a/research-tool/modules/subdomains"
 	"github.com/3n3a/research-tool/modules/ip"
@@ -9,8 +11,26 @@ import (
 
 var version string
 
+// GetEnvAsUint retrieves an environment variable and parses it to a uint.
+// If the variable is not set or can't be parsed, it returns a default value.
+func GetEnvAsUint(key string, defaultValue uint64, bitSize int) uint64 {
+    // Get the environment variable as a string
+    envVar := os.Getenv(key)
+    
+    // Try to parse the string to a uint
+    if value, err := strconv.ParseUint(envVar, 10, bitSize); err == nil {
+        return value
+    }
+    
+    // Return the default value if parsing fails
+    return defaultValue
+}
+
 func main() {
 	// with config
+
+	// get port from env, or otherwise default of wapp framework
+	port := GetEnvAsUint("PORT", 0, 16)
 	w := wapp.New(wapp.Config{
 		Name: "Research Tool",
 		CoreModules: []wapp.CoreModule{
@@ -22,6 +42,7 @@ func main() {
 		},
 		Version: version,
 		DebugMode: false,
+		Port: port,
 	})
 	
 	// Register Lowest Level Modules (not Submodules)
