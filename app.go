@@ -24,7 +24,7 @@ func main() {
 	// with config
 
 	// get port from env, or otherwise default of wapp framework
-	port := GetEnvAsUint("PORT", 0)
+	port := GetEnvAsUint16("PORT", 0)
 	w := wapp.New(wapp.Config{
 		Name: "Research Tool",
 		CoreModules: []wapp.CoreModule{
