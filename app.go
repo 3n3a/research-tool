@@ -34,9 +34,9 @@ func main() {
 			wapp.Compress,
 			// wapp.Cache,
 		},
+		Port: port,
 		Version: version,
 		DebugMode: false,
-		Port: port,
 	})
 	
 	// Register Lowest Level Modules (not Submodules)
