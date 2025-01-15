@@ -1,0 +1,7 @@
+<p>home works!</p>
+
+@if (pingResponse()) {
+<p>backend is running: {{ pingResponse()?.title }}</p>
+} @else {
+<p>backend down</p>
+}
