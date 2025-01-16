@@ -1,5 +1,7 @@
 import { Component, signal, Signal } from '@angular/core';
-import { PingResponse, PingService } from '../../services/ping/ping.service';
+import { PingService } from '../../services/ping/ping.service';
+import { PingResponse } from '../../types/ping-response';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'pages-home',
@@ -11,7 +13,13 @@ export class HomeComponent {
 
   pingResponse: Signal<PingResponse | undefined> = signal(undefined)
 
-  constructor (private pingService: PingService) {
+  constructor (private pingService: PingService, private messageService: MessageService) {
     this.pingResponse = this.pingService.ping()
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Successful',
+      detail: 'Successfully retrieved ping from backend.',
+      life: 2000,
+    })
   }
 }
