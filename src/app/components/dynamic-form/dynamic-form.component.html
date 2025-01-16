@@ -1,0 +1,12 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  @for (question of questions; track question) {
+  <comp-dynamic-form-question
+    [question]="question"
+    [form]="form"
+  ></comp-dynamic-form-question>
+  }
+  <p-button label="Search" [disabled]="!form.valid" />
+</form>
+@if (payLoad) {
+<strong>Saved the following values</strong><br />{{ payLoad }}
+}

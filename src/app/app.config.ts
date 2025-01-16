@@ -11,8 +11,8 @@ import { httpInterceptor } from './interceptors/http/http.interceptor';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
 import { MessageService } from 'primeng/api';
+import { AuraStandard } from './themes/aura-standard';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,13 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Aura,
-        options: {
-          cssLayer: {
-            name: 'primeng',
-            order: 'tailwind-base, primeng, tailwind-utilities'
-          }
-        }
+        preset: AuraStandard,
       },
     }),
     MessageService

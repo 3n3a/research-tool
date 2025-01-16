@@ -15,7 +15,7 @@ ng g component -p comp components/<name>
 ## Services
 
 ```bash
-ng g service services/<name>
+ng g service services/<name>/<name>
 ```
 
 ## Install Node.js
