@@ -1,5 +1,5 @@
 import { Component, signal, Signal } from '@angular/core';
-import { PingResponse, PingService } from '../../services/ping.service';
+import { PingResponse, PingService } from '../../services/ping/ping.service';
 
 @Component({
   selector: 'pages-home',

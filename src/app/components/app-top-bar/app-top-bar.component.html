@@ -1,0 +1,13 @@
+  <p-menubar [model]="items()" styleClass="drop-shadow-none border border-solid rounded-md p-4">
+    <ng-template #start>
+      <div class="flex gap-2 items-center">
+        <i class="pi pi-wrench"></i>
+      </div>
+    </ng-template>
+    <ng-template #end>
+      <div class="flex gap-2 items-center">
+        <p class="mr-4 hidden md:block">v{{ version }}</p>
+      </div>
+    </ng-template>
+  </p-menubar>
+
