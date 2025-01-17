@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { DynamicFormQuestionComponent } from '../dynamic-form-question/dynamic-form-question.component';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { QuestionBase } from '../../types/question-base';
@@ -19,14 +19,15 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './dynamic-form.component.scss'
 })
 export class DynamicFormComponent implements OnInit {
-  @Input() questions: QuestionBase<string>[] | null = [];
+  readonly questions = input<QuestionBase<string>[] | null>([]);
+  readonly submitButtonText = input<string>("Submit");
   form!: FormGroup;
   payLoad = '';
 
   constructor(private qcs: DynamicFormService) {}
 
   ngOnInit() {
-    this.form = this.qcs.toFormGroup(this.questions as QuestionBase<string>[]);
+    this.form = this.qcs.toFormGroup(this.questions() as QuestionBase<string>[]);
   }
 
   onSubmit() {
