@@ -1,16 +1,13 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="form">
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4">
     @for (question of questions(); track question) {
       <comp-dynamic-form-question
         [question]="question"
         [form]="form"
       ></comp-dynamic-form-question>
     }
-  </div>
-  <div class="pt-4">
-    <button pButton type="submit" [disabled]="!form.valid">{{ submitButtonText() }}</button>
+    <div class="flex flex-col">
+      <button pButton type="submit" [disabled]="!form.valid" [loading]="isLoading()">{{ submitButtonText() }}</button>
+    </div>
   </div>
 </form>
-@if (payLoad) {
-<strong>Saved the following values</strong><br />{{ payLoad }}
-}

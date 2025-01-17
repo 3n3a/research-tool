@@ -2,6 +2,7 @@ import { Component, signal, Signal } from '@angular/core';
 import { PingService } from '../../services/ping/ping.service';
 import { PingResponse } from '../../types/ping-response';
 import { MessageService } from 'primeng/api';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'pages-home',
@@ -14,7 +15,7 @@ export class HomeComponent {
   pingResponse: Signal<PingResponse | undefined> = signal(undefined)
 
   constructor (private pingService: PingService, private messageService: MessageService) {
-    this.pingResponse = this.pingService.ping()
+    this.pingResponse = toSignal(this.pingService.ping())
     this.messageService.add({
       severity: 'info',
       summary: 'Successful',

@@ -1,1 +1,5 @@
-<comp-dynamic-form [questions]="questions" submitButtonText="Search"></comp-dynamic-form>
+<div class="py-4 flex flex-col gap-2">
+  <h1 class="text-4xl pb-4">DNS Lookup</h1>
+  <comp-dynamic-form [questions]="questions()" submitButtonText="Search" (payload)="onSubmit($event)" [isLoading]="dnsAnswersLoading()" />
+  <comp-dns-table [records]="dnsAnswers() || []" [isLoading]="dnsAnswersLoading()" />
+</div>

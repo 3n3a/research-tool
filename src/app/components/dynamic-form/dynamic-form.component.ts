@@ -1,9 +1,10 @@
-import { Component, OnInit, input } from '@angular/core';
+import { Component, OnInit, Signal, input, output } from '@angular/core';
 import { DynamicFormQuestionComponent } from '../dynamic-form-question/dynamic-form-question.component';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { QuestionBase } from '../../types/question-base';
 import { DynamicFormService } from '../../services/dynamic-form/dynamic-form.service';
 import { ButtonModule } from 'primeng/button';
+import { DnsForm } from '../../types/dns-form';
 
 /**
  * Created from example in angular docs:
@@ -21,8 +22,10 @@ import { ButtonModule } from 'primeng/button';
 export class DynamicFormComponent implements OnInit {
   readonly questions = input<QuestionBase<string>[] | null>([]);
   readonly submitButtonText = input<string>("Submit");
+  readonly isLoading = input<boolean>(false);
+
   form!: FormGroup;
-  payLoad = '';
+  payload = output<DnsForm>();
 
   constructor(private qcs: DynamicFormService) {}
 
@@ -31,6 +34,6 @@ export class DynamicFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.payLoad = JSON.stringify(this.form.getRawValue());
+    this.payload.emit(this.form.value)
   }
 }

@@ -1,0 +1,24 @@
+<p-card header="DNS Records">
+  <p-table
+    [value]="records()"
+    [loading]="isLoading()"
+    [tableStyle]="{ 'min-width': '30rem' }"
+  >
+    <ng-template #header>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>TTL</th>
+        <th>Data</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-record>
+      <tr>
+        <td>{{ record.name }}</td>
+        <td>{{ record.type }}</td>
+        <td>{{ record.ttl }}</td>
+        <td>{{ record.data }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

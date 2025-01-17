@@ -1,3 +1,5 @@
+import { QuestionOption } from "./question-option";
+
 export class QuestionBase<T> {
   value: T | undefined;
   key: string;
@@ -6,7 +8,7 @@ export class QuestionBase<T> {
   order: number;
   controlType: string;
   type: string;
-  options: {key: string; value: string}[];
+  options: QuestionOption[];
   constructor(
     options: {
       value?: T;
@@ -16,7 +18,7 @@ export class QuestionBase<T> {
       order?: number;
       controlType?: string;
       type?: string;
-      options?: {key: string; value: string}[];
+      options?: QuestionOption[];
     } = {},
   ) {
     this.value = options.value;
