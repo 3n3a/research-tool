@@ -3,10 +3,11 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { QuestionBase } from '../../types/question-base';
 
 import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'comp-dynamic-form-question',
-  imports: [ReactiveFormsModule, InputTextModule],
+  imports: [ReactiveFormsModule, InputTextModule, SelectModule],
   templateUrl: './dynamic-form-question.component.html',
   styleUrl: './dynamic-form-question.component.scss'
 })
