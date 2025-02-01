@@ -20,6 +20,11 @@ export const routes: Routes = [
           path: 'dns',
           loadComponent: () => import('./pages/dns/dns.component')
             .then(c => c.DnsComponent)
+        },
+        {
+          path: 'subdomains',
+          loadComponent: () => import('./pages/subdomains/subdomains.component')
+            .then(c => c.SubdomainsComponent)
         }
       ]
     }

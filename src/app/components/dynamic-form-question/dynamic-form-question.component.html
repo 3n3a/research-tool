@@ -2,15 +2,22 @@
   <label [attr.for]="question.key">{{ question.label }}</label>
   <div class="flex flex-col">
     @switch (question.controlType) {
-      @case ('textbox') {
-        <input pInputText [formControlName]="question.key" [id]="question.key" [type]="question.type">
-      } @case ('dropdown') {
-        <select [id]="question.key" [formControlName]="question.key">
-        @for (opt of question.options; track opt) {
+    @case ('textbox') {
+    <input pInputText [formControlName]="question.key" [id]="question.key" [type]="question.type">
+    } @case ('dropdown') {
+    <p-select 
+      [id]="question.key" 
+      [formControlName]="question.key" 
+      [options]="question.options" 
+      [checkmark]="true"
+      optionLabel="value"
+      optionValue="key"
+      class="md:w-40 w-full"
+    />
+      <!-- @for (opt of question.options; track opt) {
           <option [value]="opt.key">{{ opt.value }}</option>
-        }
-        </select>
-      }
+        } -->
+    }
     }
   </div>
   @if (!isValid) {<div class="errorMessage">{{ question.label }} is required</div>}

@@ -8,7 +8,8 @@ import { DnsAnswer } from '../../types/dns-answer';
   selector: 'comp-dns-table',
   imports: [CardModule, TableModule],
   templateUrl: './dns-table.component.html',
-  styleUrl: './dns-table.component.scss'
+  styleUrl: './dns-table.component.scss',
+  standalone: true,
 })
 export class DnsTableComponent {
   readonly records = input<DnsAnswer[]>([])

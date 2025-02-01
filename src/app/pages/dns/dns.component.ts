@@ -1,7 +1,6 @@
 import {
   Component,
   computed,
-  OnInit,
   signal,
   Signal,
   WritableSignal,
@@ -22,6 +21,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [DynamicFormComponent, DnsTableComponent],
   templateUrl: './dns.component.html',
   styleUrl: './dns.component.scss',
+  standalone: true,
 })
 export class DnsComponent {
   dnsTypes: Signal<QuestionOption[] | undefined> = signal([]);

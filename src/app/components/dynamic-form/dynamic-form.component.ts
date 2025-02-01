@@ -17,7 +17,8 @@ import { DnsForm } from '../../types/dns-form';
   providers: [DynamicFormService],
   imports: [DynamicFormQuestionComponent, ReactiveFormsModule, ButtonModule],
   templateUrl: './dynamic-form.component.html',
-  styleUrl: './dynamic-form.component.scss'
+  styleUrl: './dynamic-form.component.scss',
+  standalone: true
 })
 export class DynamicFormComponent implements OnInit {
   readonly questions = input<QuestionBase<string>[] | null>([]);
