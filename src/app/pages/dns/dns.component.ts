@@ -58,8 +58,8 @@ export class DnsComponent {
     this.dnsAnswersLoading.set(true);
     this.dnsService
       .query(payload.domain, payload.dns_type)
-      .subscribe((dnsTypes) => {
-        this.dnsAnswers.set(dnsTypes);
+      .subscribe((dnsAnswers) => {
+        this.dnsAnswers.set(dnsAnswers);
         this.dnsAnswersLoading.set(false);
       });
   }

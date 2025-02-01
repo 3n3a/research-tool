@@ -18,6 +18,12 @@ ng g component -p comp components/<name>
 ng g service services/<name>/<name>
 ```
 
+## Environment
+
+```bash
+ng g environments
+```
+
 ## Install Node.js
 
 Make sure the same version that is specified in `.tool-versions`

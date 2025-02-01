@@ -13,7 +13,7 @@ export class DnsService {
 
   query(name: string, type: string) {
     return this.httpClient
-      .post<BaseResponse<DnsAnswer[]>>('http://localhost:8000/dns/', {
+      .post<BaseResponse<DnsAnswer[]>>('/dns/', {
         dns: { name: name, type: type },
       })
       .pipe(map((response) => response.data));
@@ -21,7 +21,7 @@ export class DnsService {
 
   dnsTypes() {
     return this.httpClient
-      .get<BaseResponse<QuestionOption[]>>('http://localhost:8000/dns/types')
+      .get<BaseResponse<QuestionOption[]>>('/dns/types')
       .pipe(map((response) => response.data));
   }
 }

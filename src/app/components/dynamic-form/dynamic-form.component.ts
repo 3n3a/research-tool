@@ -20,13 +20,13 @@ import { DnsForm } from '../../types/dns-form';
   styleUrl: './dynamic-form.component.scss',
   standalone: true
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent<TPayload> implements OnInit {
   readonly questions = input<QuestionBase<string>[] | null>([]);
   readonly submitButtonText = input<string>("Submit");
   readonly isLoading = input<boolean>(false);
 
   form!: FormGroup;
-  payload = output<DnsForm>();
+  payload = output<TPayload>();
 
   constructor(private qcs: DynamicFormService) {}
 
