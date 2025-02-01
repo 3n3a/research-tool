@@ -10,5 +10,10 @@ export const menuItems: MenuItem[] = [
     label: 'DNS',
     icon: 'pi pi-fw pi-car',
     routerLink: '/app/dns'
+  },
+  {
+    label: 'Subdomains',
+    icon: 'pi pi-fw pi-car',
+    routerLink: '/app/subdomains'
   }
 ]

@@ -27,3 +27,18 @@ or when using `asdf`:
 ```bash
 asdf install
 ```
+
+## Examples
+
+### Toast
+
+```js
+constructor (private messageService: MessageService) {
+    this.messageService.add({
+        severity: 'info',
+        summary: 'Successful',
+        detail: 'Successfully retrieved ping from backend.',
+        life: 2000,
+    })
+}
+```

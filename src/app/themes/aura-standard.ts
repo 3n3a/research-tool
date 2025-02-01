@@ -656,5 +656,5 @@ export const AuraStandard = definePreset(Aura, {
                 }
             }
         }
-    }
+    },
 });

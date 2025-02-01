@@ -1,5 +1,14 @@
-@if (pingResponse()) {
-  <p>backend is running: {{ pingResponse()?.title }}</p>
-} @else {
-  <p>backend down</p>
-}
+<div class="py-4 flex flex-col gap-2">
+  <h1 class="text-4xl pb-4">Research Tool</h1>
+
+  <div class="flex gap-4">
+    @for (menuItem of menuItems; track menuItem) {
+      @if (menuItem.routerLink != "/app/home") {
+        <a [routerLink]="menuItem.routerLink" class="flex justify-center items-center gap-2 size-40 border rounded-md shadow-md hover:bg-gray-100 dark:hover:bg-stone-50/10">
+          <i [classList]="menuItem.icon"></i>
+          <p>{{ menuItem.label }}</p>
+        </a>
+      }
+    }
+  </div>
+</div>
