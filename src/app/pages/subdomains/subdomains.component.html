@@ -1,0 +1,7 @@
+<div class="py-4 flex flex-col gap-2">
+    <h1 class="text-4xl pb-4">Subdomains</h1>
+    <comp-dynamic-form [questions]="questions()" submitButtonText="Search" (payload)="onSubmit($event)"
+        [isLoading]="subdomainAnswersLoading()" />
+    <comp-subdomains-table [isLoading]="subdomainAnswersLoading()" [records]="subdomainAnswers() || []" />
+    <comp-error-display [errorMessage]="errorMessage()" />
+</div>

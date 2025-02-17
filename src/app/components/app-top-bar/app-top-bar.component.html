@@ -1,0 +1,22 @@
+<p-menubar [model]="items()" styleClass="!drop-shadow-none !border !border-solid !rounded-md !p-4">
+  <ng-template #start>
+    <div class="flex gap-2 items-center">
+      <i class="pi pi-wrench"></i>
+    </div>
+  </ng-template>
+  <ng-template #end>
+    <div class="flex flex-row gap-2">
+      <div class="flex gap-2 items-center">
+        @if (pingResponse()) {
+          <i class="pi pi-circle-fill text-green-500" title="Backend is running."></i>
+        } @else {
+          <i class="pi pi-circle-fill text-red-500" title="Backend did not respond."></i>
+        }
+      </div>
+
+      <div class="flex gap-2 items-center">
+        <p class="mr-4 hidden md:block">v{{ version }}</p>
+      </div>
+    </div>
+  </ng-template>
+</p-menubar>

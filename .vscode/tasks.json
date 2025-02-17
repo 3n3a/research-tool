@@ -1,61 +1,42 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "NPM Setup",
-            "type": "shell",
-            "command": "npm i",
-            "group": "build"
-        },
-        {
-            "label": "NPM Run",
-            "type": "shell",
-            "command": "npm run dev",
-            "dependsOn": [
-                "NPM Setup"
-            ],
-            "group": "build",
-            "presentation": {
-                "group": "buildGroup",
-                "reveal": "always",
-                "panel": "new",
-                "echo": false
-            }
-        },
-        {
-            "label": "GO Setup",
-            "type": "shell",
-            "command": "go get && go install github.com/cosmtrek/air@latest",
-            "group": "build"
-        },
-        {
-            "label": "GO Run",
-            "type": "shell",
-            "command": "air",
-            "dependsOn": [
-                "GO Setup"
-            ],
-            "group": "build",
-            "presentation": {
-                "group": "buildGroup",
-                "reveal": "always",
-                "panel": "new",
-                "echo": false
-            }
-        },
-        {
-            "label": "Run All",
-            "dependsOn": [
-                "GO Run",
-                "NPM Run"
-            ],
-            "group": "build",
-            "runOptions": {
-                "runOn": "folderOpen",
-            },
-            "problemMatcher": []
+  // For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "start",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "(.*?)"
+          },
+          "endsPattern": {
+            "regexp": "bundle generation complete"
+          }
         }
-    ]
+      }
+    },
+    {
+      "type": "npm",
+      "script": "test",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "(.*?)"
+          },
+          "endsPattern": {
+            "regexp": "bundle generation complete"
+          }
+        }
+      }
+    }
+  ]
 }

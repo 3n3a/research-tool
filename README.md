@@ -1,58 +1,59 @@
-# research tool
+# ResearchTool
 
-tbd
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
 
+## Development server
 
-It's using [wapp](3n3a/wapp).
-
-## Additional requirements
-- node.js
-- npm
-- go
-- air
-
-## Usage
-
-First build the assets
-```bash
-# Install dependencies
-npm install
-
-# Build assets
-npm run build
-
-# Watch assets for changes
-npm run dev
-```
-
-Install the [air cli](https://github.com/cosmtrek/air)
+To start a local development server, run:
 
 ```bash
-go install github.com/cosmtrek/air@latest
+ng serve
 ```
 
-Then run the fiber app
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Code scaffolding
+
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
 ```bash
-air
+ng generate component component-name
 ```
 
-## Versions of Frontend Libraries
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-Libraries such as htmx that are included in the html directly and retrieved from cdn. The versions of those can be configured in `versions.json` file.
+```bash
+ng generate --help
+```
 
-## Data Sources
+## Building
 
-All the sources where the data comes from
+To build the project run:
 
-### Subdomains
+```bash
+ng build
+```
 
-ARP Syndicate has an API to get subdomains. It uses tls certificate logs to get this info. 
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-**Source**: [subdomain.center](https://subdomain.center) / [crt.sh](https://crt.sh)
+## Running unit tests
 
-### DNS Lookup
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
-DNS over HTTPS Lookup via Cloudflare DNS
+```bash
+ng test
+```
 
-**Source**: [one.one.one.one](https://1.1.1.1)
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
