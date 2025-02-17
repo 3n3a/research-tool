@@ -1,0 +1,19 @@
+<p-card header="Subdomains">
+    <p-table [value]="records()" [loading]="isLoading()" [tableStyle]="{ 'min-width': '30rem' }">
+        <ng-template #header>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-record>
+            <tr>
+                <!-- TODO: improve to let users choose the procotol http or https for the links -->
+                <td>
+                    <a [href]="'http://'+ record" target="_blank" rel="noopener noreferrer" class="p-button font-bold">
+                        {{ record }}
+                    </a>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>

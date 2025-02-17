@@ -8,8 +8,7 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  standalone: true,
-})
+  })
 export class HomeComponent {
   menuItems: MenuItem[] = menuItems;
 }

@@ -8,14 +8,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { SubdomainForm } from '../../types/subdomain-form';
 import { SubdomainAnswer } from '../../types/subdomain-answer';
 import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
+import { SubdomainsTableComponent } from "../../components/subdomains-table/subdomains-table.component";
 
 @Component({
   selector: 'pages-subdomains',
-  imports: [DynamicFormComponent],
+  imports: [DynamicFormComponent, SubdomainsTableComponent],
   templateUrl: './subdomains.component.html',
   styleUrl: './subdomains.component.scss',
-  standalone: true,
-})
+  })
 export class SubdomainsComponent {
   subdomainsSources: Signal<QuestionOption[] | undefined> = signal([]);
   questions: Signal<QuestionBase<string>[]> = computed(() => [

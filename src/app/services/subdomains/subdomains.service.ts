@@ -4,6 +4,7 @@ import { catchError, map, throwError } from 'rxjs';
 import { BaseResponse } from '../../types/base-response';
 import { QuestionOption } from '../../types/question-option';
 import { SubdomainAnswer } from '../../types/subdomain-answer';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,14 @@ export class SubdomainsService {
 
     let errorMessage = 'An unexpected error occurred. Please try again later.';
 
-    if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      errorMessage = `Client-side error: ${error.error.message}`;
-    } else {
-      // Server-side error
-      errorMessage = `Server returned code ${error.status}, message: ${error.message}`;
+    if (!environment.production) {
+      if (error.error instanceof ErrorEvent) {
+        // Client-side error
+        errorMessage = `Client-side error: ${error.error.message}`;
+      } else {
+        // Server-side error
+        errorMessage = `Server returned code ${error.status}, message: ${error.message}`;
+      }
     }
 
     return throwError(() => new Error(errorMessage));
@@ -33,7 +36,7 @@ export class SubdomainsService {
         subdomain: { domain: domain, source: source },
       })
       .pipe(
-        map((response) => response.data), 
+        map((response) => response.data.sort()), 
         catchError(this.handleError)
       );
   }

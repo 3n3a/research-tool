@@ -2,10 +2,10 @@
     <h1 class="text-4xl pb-4">Subdomains</h1>
     <comp-dynamic-form [questions]="questions()" submitButtonText="Search" (payload)="onSubmit($event)"
         [isLoading]="subdomainAnswersLoading()" />
-    <pre>{{ subdomainAnswers() }}</pre>
+    <comp-subdomains-table [isLoading]="subdomainAnswersLoading()" [records]="subdomainAnswers() || []" />
     @if (errorMessage()) {
-        <div class="error-message">
-            {{ errorMessage() }}
-        </div>
+    <div class="text-red-500">
+        {{ errorMessage() }}
+    </div>
     }
 </div>

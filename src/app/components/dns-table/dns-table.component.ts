@@ -9,7 +9,6 @@ import { DnsAnswer } from '../../types/dns-answer';
   imports: [CardModule, TableModule],
   templateUrl: './dns-table.component.html',
   styleUrl: './dns-table.component.scss',
-  standalone: true,
 })
 export class DnsTableComponent {
   readonly records = input<DnsAnswer[]>([])
