@@ -26,7 +26,7 @@ export class SubdomainsComponent {
       order: 1,
     }),
     new DropdownQuestion({
-      key: 'subdomain_source',
+      key: 'source',
       label: 'Subdomain Source',
       required: true,
       order: 2,
@@ -38,17 +38,29 @@ export class SubdomainsComponent {
   subdomainAnswers: WritableSignal<SubdomainAnswer[] | undefined> = signal([]);
   subdomainAnswersLoading: WritableSignal<boolean> = signal(false);
 
+  errorMessage = signal<string | null>(null);
+
   constructor(private subdomainsService: SubdomainsService) {
-    this.subdomainsSources = toSignal(this.subdomainsService.subdomainsSources());
+    try {
+      const sources$ = this.subdomainsService.subdomainsSources();
+      this.subdomainsSources = toSignal(sources$, { initialValue: [] });
+    } catch (error) {
+      this.errorMessage.set((error as Error).message)
+    }
   }
 
   onSubmit(payload: SubdomainForm) {
     this.subdomainAnswersLoading.set(true);
-    this.subdomainsService
-      .query(payload.domain, payload.source)
-      .subscribe((subdomainAnswersResponse) => {
-        this.subdomainAnswers.set(subdomainAnswersResponse);
-        this.subdomainAnswersLoading.set(false);
+    this.subdomainsService.query(payload.domain, payload.source)
+      .subscribe({
+        next: (subdomainAnswersResponse) => {
+          this.subdomainAnswers.set(subdomainAnswersResponse);
+          this.subdomainAnswersLoading.set(false);
+        },
+        error: (error) => {
+          this.subdomainAnswersLoading.set(false);
+          this.errorMessage.set((error as Error).message)
+        }
       });
   }
 }
