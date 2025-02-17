@@ -9,13 +9,14 @@ import { SubdomainForm } from '../../types/subdomain-form';
 import { SubdomainAnswer } from '../../types/subdomain-answer';
 import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
 import { SubdomainsTableComponent } from "../../components/subdomains-table/subdomains-table.component";
+import { ErrorDisplayComponent } from "../../components/error-display/error-display.component";
 
 @Component({
   selector: 'pages-subdomains',
-  imports: [DynamicFormComponent, SubdomainsTableComponent],
+  imports: [DynamicFormComponent, SubdomainsTableComponent, ErrorDisplayComponent],
   templateUrl: './subdomains.component.html',
   styleUrl: './subdomains.component.scss',
-  })
+})
 export class SubdomainsComponent {
   subdomainsSources: Signal<QuestionOption[] | undefined> = signal([]);
   questions: Signal<QuestionBase<string>[]> = computed(() => [

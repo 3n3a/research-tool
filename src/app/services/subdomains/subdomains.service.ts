@@ -1,33 +1,17 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs';
 import { BaseResponse } from '../../types/base-response';
 import { QuestionOption } from '../../types/question-option';
 import { SubdomainAnswer } from '../../types/subdomain-answer';
-import { environment } from '../../../environments/environment.development';
+import { BaseService } from '../base/base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SubdomainsService {
-  constructor(private httpClient: HttpClient) { }
-
-  private handleError(error: HttpErrorResponse) {
-    console.error('API Error:', error);
-
-    let errorMessage = 'An unexpected error occurred. Please try again later.';
-
-    if (!environment.production) {
-      if (error.error instanceof ErrorEvent) {
-        // Client-side error
-        errorMessage = `Client-side error: ${error.error.message}`;
-      } else {
-        // Server-side error
-        errorMessage = `Server returned code ${error.status}, message: ${error.message}`;
-      }
-    }
-
-    return throwError(() => new Error(errorMessage));
+export class SubdomainsService extends BaseService {
+  constructor(private httpClient: HttpClient) {
+    super();
   }
 
   query(domain: string, source: string) {
@@ -37,7 +21,7 @@ export class SubdomainsService {
       })
       .pipe(
         map((response) => response.data.sort()), 
-        catchError(this.handleError)
+        catchError(super.handleError)
       );
   }
 
@@ -46,7 +30,7 @@ export class SubdomainsService {
       .get<BaseResponse<QuestionOption[]>>('/subdomains/sources')
       .pipe(
         map((response) => response.data), 
-        catchError(this.handleError)
+        catchError(super.handleError)
       );
   }
 }

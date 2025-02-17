@@ -3,9 +3,5 @@
     <comp-dynamic-form [questions]="questions()" submitButtonText="Search" (payload)="onSubmit($event)"
         [isLoading]="subdomainAnswersLoading()" />
     <comp-subdomains-table [isLoading]="subdomainAnswersLoading()" [records]="subdomainAnswers() || []" />
-    @if (errorMessage()) {
-    <div class="text-red-500">
-        {{ errorMessage() }}
-    </div>
-    }
+    <comp-error-display [errorMessage]="errorMessage()" />
 </div>

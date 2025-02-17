@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="form">
-  <div class="flex flex-col md:flex-row items-stretch md:items-center gap-4">
+  <div class="flex flex-col md:flex-row md:flex-wrap items-stretch md:items-center gap-4">
     @for (question of questions(); track question) {
       <comp-dynamic-form-question
         [question]="question"

@@ -2,4 +2,5 @@
   <h1 class="text-4xl pb-4">DNS Lookup</h1>
   <comp-dynamic-form [questions]="questions()" submitButtonText="Search" (payload)="onSubmit($event)" [isLoading]="dnsAnswersLoading()" />
   <comp-dns-table [records]="dnsAnswers() || []" [isLoading]="dnsAnswersLoading()" />
+  <comp-error-display [errorMessage]="errorMessage()" />
 </div>
