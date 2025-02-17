@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { throwError } from 'rxjs';
 
 export class BaseService {
