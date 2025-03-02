@@ -4,7 +4,6 @@ import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { QuestionBase } from '../../types/question-base';
 import { DynamicFormService } from '../../services/dynamic-form/dynamic-form.service';
 import { ButtonModule } from 'primeng/button';
-import { DnsForm } from '../../types/dns-form';
 
 /**
  * Created from example in angular docs:
@@ -32,6 +31,10 @@ export class DynamicFormComponent<TPayload> implements OnInit {
 
   ngOnInit() {
     this.form = this.qcs.toFormGroup(this.questions() as QuestionBase<string>[]);
+    // preload result from query parameter if all fields filled
+    if (this.form.valid) {
+      this.onSubmit()
+    }
   }
 
   onSubmit() {
