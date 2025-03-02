@@ -129,7 +129,6 @@ export class DnsComponent {
         dns_proto: this.qDnsProto()
       },
       queryParamsHandling: 'replace',
-      // replaceUrl: true, // Avoids pushing a new history entry
     });
 
     this.dnsService
@@ -138,6 +137,7 @@ export class DnsComponent {
         next: (dnsAnswers) => {
           this.dnsAnswers.set(dnsAnswers);
           this.dnsAnswersLoading.set(false);
+          this.errorMessage.set(null);
         },
         error: (error) => {
           this.dnsAnswersLoading.set(false);
