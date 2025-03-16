@@ -25,6 +25,11 @@ export const routes: Routes = [
           path: 'subdomains',
           loadComponent: () => import('./pages/subdomains/subdomains.component')
             .then(c => c.SubdomainsComponent)
+        },
+        {
+          path: 'ip',
+          loadComponent: () => import('./pages/ip/ip.component')
+            .then(c => c.IpComponent)
         }
       ]
     }

@@ -33,6 +33,7 @@ export class DynamicFormComponent<TPayload> implements OnInit {
     this.form = this.qcs.toFormGroup(this.questions() as QuestionBase<string>[]);
     // preload result from query parameter if all fields filled
     if (this.form.valid) {
+      console.log('submitting early')
       this.onSubmit()
     }
   }

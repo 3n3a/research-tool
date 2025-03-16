@@ -8,7 +8,7 @@ export function httpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Obs
   // Clone the requst to enable including of credentials so "mode: cors" is being implied
   const newReq = req.clone({
     url: newURL.toString(),
-    withCredentials: true,
+    // withCredentials: true,
   });
   return next(newReq);
 }
