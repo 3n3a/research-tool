@@ -1,0 +1,22 @@
+<p-table [value]="facts()" [loading]="isLoading()" styleClass="w-full">
+  <ng-template #body let-fact>
+    <tr>
+      <th scope="row" class="w-1/3 font-normal text-muted-color">{{ fact.label }}</th>
+      <td>
+        @if (fact.flag !== undefined) {
+          <p-tag
+            [value]="fact.flag ? 'yes' : 'no'"
+            [severity]="fact.flag ? 'warn' : 'success'"
+          />
+        } @else {
+          {{ fact.value }}
+        }
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template #emptymessage>
+    <tr>
+      <td colspan="2" class="text-muted-color">No ip information.</td>
+    </tr>
+  </ng-template>
+</p-table>

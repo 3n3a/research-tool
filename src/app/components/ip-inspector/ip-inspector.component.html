@@ -1,0 +1,26 @@
+<p-drawer
+  [visible]="!!ip()"
+  (visibleChange)="onVisibleChange($event)"
+  position="right"
+  styleClass="!w-full md:!w-[30rem]"
+>
+  <ng-template #header>
+    <div class="flex items-center gap-2">
+      <i class="pi pi-map-marker"></i>
+      <span class="font-bold">{{ ip() }}</span>
+    </div>
+  </ng-template>
+
+  <div class="flex flex-col gap-2">
+    <comp-ip-info [ip]="info()" [isLoading]="isLoading()" />
+    <comp-error-display [errorMessage]="errorMessage()" />
+    <a
+      [routerLink]="'/app/ip'"
+      [queryParams]="{ query: ip() }"
+      class="p-button p-button-text"
+    >
+      <i class="pi pi-external-link"></i>
+      <span>Open on the ip page</span>
+    </a>
+  </div>
+</p-drawer>

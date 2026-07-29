@@ -1,24 +1,108 @@
-<p-card header="DNS Records">
+<ng-template #table>
   <p-table
-    [value]="records()"
+    #dt
+    [value]="rows()"
     [loading]="isLoading()"
     [tableStyle]="{ 'min-width': '30rem' }"
+    [paginator]="rows().length > 15"
+    [rows]="15"
+    [globalFilterFields]="['name', 'type', 'data', 'server']"
+    sortMode="multiple"
   >
+    @if (heading()) {
+      <ng-template #caption>
+        <div class="flex justify-end">
+          <p-iconfield>
+            <p-inputicon class="pi pi-search" />
+            <input
+              pInputText
+              type="text"
+              placeholder="Filter records"
+              (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            />
+          </p-iconfield>
+        </div>
+      </ng-template>
+    }
+
     <ng-template #header>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>TTL</th>
+        <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+        <th pSortableColumn="type">Type <p-sortIcon field="type" /></th>
+        <th pSortableColumn="ttl">TTL <p-sortIcon field="ttl" /></th>
         <th>Data</th>
+        <th>Server</th>
       </tr>
     </ng-template>
+
     <ng-template #body let-record>
       <tr>
-        <td>{{ record.name }}</td>
+        <td class="break-all">{{ record.name }}</td>
         <td>{{ record.type }}</td>
         <td>{{ record.ttl }}</td>
-        <td>{{ record.data }}</td>
+        <td>
+          @switch (record.target.kind) {
+            @case ('ip') {
+              <button
+                pButton
+                type="button"
+                [text]="true"
+                size="small"
+                class="!px-2"
+                [title]="'Show ip information for ' + record.target.value"
+                (click)="inspectIp.emit(record.target.value)"
+              >
+                <span class="break-all">{{ record.data }}</span>
+                <i class="pi pi-info-circle"></i>
+              </button>
+            }
+            @case ('host') {
+              <div class="flex flex-wrap items-center gap-1">
+                <span class="break-all">{{ record.data }}</span>
+                <a
+                  [routerLink]="'/app/dns'"
+                  [queryParams]="{
+                    domain: record.target.value,
+                    dns_type: 'A',
+                    dns_source: source(),
+                    dns_proto: protocol()
+                  }"
+                  class="p-button p-button-text p-button-sm"
+                  [title]="'Look up ' + record.target.value"
+                >
+                  <i class="pi pi-file"></i>
+                </a>
+                <a
+                  [routerLink]="'/app/subdomains'"
+                  [queryParams]="{ domain: record.target.value, source: 'all' }"
+                  class="p-button p-button-text p-button-sm"
+                  [title]="'Find subdomains of ' + record.target.value"
+                >
+                  <i class="pi pi-sitemap"></i>
+                </a>
+              </div>
+            }
+            @default {
+              <span class="break-all">{{ record.data }}</span>
+            }
+          }
+        </td>
+        <td class="break-all text-muted-color">{{ record.server }}</td>
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="5" class="text-muted-color">No dns records.</td>
       </tr>
     </ng-template>
   </p-table>
-</p-card>
+</ng-template>
+
+@if (heading()) {
+  <p-card [header]="heading()">
+    <ng-container *ngTemplateOutlet="table"></ng-container>
+  </p-card>
+} @else {
+  <ng-container *ngTemplateOutlet="table"></ng-container>
+}

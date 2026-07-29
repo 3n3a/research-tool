@@ -20,7 +20,8 @@ export class SubdomainsService extends BaseService {
         subdomain: { domain: domain, source: source },
       })
       .pipe(
-        map((response) => response.data.sort()), 
+        // The api already sorts by label depth, and the table sorts on demand.
+        map((response) => response.data),
         catchError(super.handleError)
       );
   }

@@ -2,6 +2,18 @@
     <h1 class="text-4xl pb-4">Subdomains</h1>
     <comp-dynamic-form [questions]="questions()" submitButtonText="Search" (payload)="onSubmit($event)"
         [isLoading]="subdomainAnswersLoading()" />
-    <comp-subdomains-table [isLoading]="subdomainAnswersLoading()" [records]="subdomainAnswers() || []" />
+    @if (qDomain()) {
+        <div class="flex flex-wrap gap-2">
+            <a [routerLink]="'/app/dns'"
+                [queryParams]="{ domain: qDomain(), dns_type: 'A', dns_source: 'cloudflare', dns_proto: 'DoH' }"
+                class="p-button p-button-text">
+                <i class="pi pi-file"></i>
+                <span>DNS records of {{ qDomain() }}</span>
+            </a>
+        </div>
+    }
+    <comp-subdomains-table [isLoading]="subdomainAnswersLoading()" [records]="subdomainAnswers() || []"
+        (inspectIp)="selectedIp.set($event)" />
     <comp-error-display [errorMessage]="errorMessage()" />
+    <comp-ip-inspector [ip]="selectedIp()" (closed)="selectedIp.set(null)" />
 </div>

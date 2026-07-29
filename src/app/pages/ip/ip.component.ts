@@ -4,14 +4,21 @@ import { ErrorDisplayComponent } from "../../components/error-display/error-disp
 import { QuestionBase } from '../../types/question-base';
 import { TextboxQuestion } from '../../types/question-textbox';
 import { IpService } from '../../services/ip/ip.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { IpAddr } from '../../types/ip-addr';
 import { IpForm } from '../../types/ip-form';
-import { JsonPipe } from '@angular/common';
+import { CardModule } from 'primeng/card';
+import { IpInfoComponent } from '../../components/ip-info/ip-info.component';
 
 @Component({
   selector: 'pages-ip',
-  imports: [DynamicFormComponent, ErrorDisplayComponent, JsonPipe],
+  imports: [
+    DynamicFormComponent,
+    ErrorDisplayComponent,
+    IpInfoComponent,
+    CardModule,
+    RouterLink,
+  ],
   templateUrl: './ip.component.html',
   styleUrl: './ip.component.scss'
 })

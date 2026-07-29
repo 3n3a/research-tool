@@ -10,11 +10,18 @@ import { SubdomainAnswer } from '../../types/subdomain-answer';
 import { DynamicFormComponent } from '../../components/dynamic-form/dynamic-form.component';
 import { SubdomainsTableComponent } from "../../components/subdomains-table/subdomains-table.component";
 import { ErrorDisplayComponent } from "../../components/error-display/error-display.component";
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { IpInspectorComponent } from '../../components/ip-inspector/ip-inspector.component';
 
 @Component({
   selector: 'pages-subdomains',
-  imports: [DynamicFormComponent, SubdomainsTableComponent, ErrorDisplayComponent],
+  imports: [
+    DynamicFormComponent,
+    SubdomainsTableComponent,
+    ErrorDisplayComponent,
+    IpInspectorComponent,
+    RouterLink,
+  ],
   templateUrl: './subdomains.component.html',
   styleUrl: './subdomains.component.scss',
 })
@@ -55,6 +62,9 @@ export class SubdomainsComponent {
   subdomainAnswersLoading: WritableSignal<boolean> = signal(false);
 
   errorMessage = signal<string | null>(null);
+
+  /** Address the ip drawer is showing, if any. */
+  selectedIp = signal<string | null>(null);
 
   constructor(private subdomainsService: SubdomainsService, private router: Router) {
     try {

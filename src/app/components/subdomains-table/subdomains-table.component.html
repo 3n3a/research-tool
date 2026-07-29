@@ -1,18 +1,81 @@
 <p-card header="Subdomains">
-    <p-table [value]="records()" [loading]="isLoading()" [tableStyle]="{ 'min-width': '30rem' }">
+    <p-table #dt [value]="rows()" [loading]="isLoading()" [tableStyle]="{ 'min-width': '30rem' }"
+        dataKey="name" [globalFilterFields]="['name']" [paginator]="rows().length > 20" [rows]="20"
+        [rowsPerPageOptions]="[20, 50, 100]" (onRowExpand)="onExpand($event.data.name)"
+        (onRowCollapse)="onCollapse($event.data.name)">
+        <ng-template #caption>
+            <div class="flex flex-col md:flex-row md:items-center gap-2 md:justify-between">
+                <p-iconfield>
+                    <p-inputicon class="pi pi-search" />
+                    <input pInputText type="text" placeholder="Filter subdomains"
+                        (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+                </p-iconfield>
+                <div class="flex items-center gap-2">
+                    <label for="record-type" class="text-muted-color">Records</label>
+                    <p-select inputId="record-type" [options]="dnsTypes()" optionLabel="key" optionValue="value"
+                        [filter]="true" filterBy="key" [ngModel]="recordType()"
+                        (onChange)="onRecordTypeSelected($event.value)" class="w-32" />
+                </div>
+            </div>
+        </ng-template>
+
         <ng-template #header>
             <tr>
-                <th>Name</th>
+                <th class="w-12"></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                <th class="w-40">Links</th>
             </tr>
         </ng-template>
-        <ng-template #body let-record>
+
+        <ng-template #body let-record let-expanded="expanded">
             <tr>
-                <!-- TODO: improve to let users choose the procotol http or https for the links -->
                 <td>
-                    <a [href]="'http://'+ record" target="_blank" rel="noopener noreferrer" class="p-button font-bold">
-                        {{ record }}
-                    </a>
+                    <button type="button" pButton pRowToggler [text]="true" size="small"
+                        [title]="'Show ' + recordType() + ' records'"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                 </td>
+                <td class="break-all font-bold">{{ record.name }}</td>
+                <td>
+                    <div class="flex items-center gap-1">
+                        <a [routerLink]="'/app/dns'"
+                            [queryParams]="{ domain: record.name, dns_type: recordType(), dns_source: source, dns_proto: protocol }"
+                            class="p-button p-button-text p-button-sm" [title]="'Open ' + record.name + ' in dns lookup'">
+                            <i class="pi pi-file"></i>
+                        </a>
+                        <a [routerLink]="'/app/subdomains'" [queryParams]="{ domain: record.name, source: 'all' }"
+                            class="p-button p-button-text p-button-sm" [title]="'Find subdomains of ' + record.name">
+                            <i class="pi pi-sitemap"></i>
+                        </a>
+                        <a [href]="'https://' + record.name" target="_blank" rel="noopener noreferrer"
+                            class="p-button p-button-text p-button-sm" [title]="'Visit https://' + record.name">
+                            <i class="pi pi-external-link"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template #expandedrow let-record>
+            <tr>
+                <td colspan="3">
+                    <div class="flex flex-col gap-2 p-2">
+                        <span class="text-muted-color">
+                            {{ recordType() }} records for {{ record.name }}
+                        </span>
+                        <comp-dns-table heading="" [records]="state(record.name).records"
+                            [isLoading]="state(record.name).isLoading" [source]="source" [protocol]="protocol"
+                            (inspectIp)="inspectIp.emit($event)" />
+                        @if (state(record.name).errorMessage) {
+                            <div class="text-red-500">{{ state(record.name).errorMessage }}</div>
+                        }
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template #emptymessage>
+            <tr>
+                <td colspan="3" class="text-muted-color">No subdomains.</td>
             </tr>
         </ng-template>
     </p-table>

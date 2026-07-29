@@ -1,13 +1,13 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="form">
+<form (ngSubmit)="onSubmit()" [formGroup]="form()">
   <div class="flex flex-col md:flex-row md:flex-wrap items-stretch md:items-center gap-4">
-    @for (question of questions(); track question) {
+    @for (question of questions(); track question.key) {
       <comp-dynamic-form-question
         [question]="question"
-        [form]="form"
+        [form]="form()"
       ></comp-dynamic-form-question>
     }
     <div class="flex flex-col">
-      <button pButton type="submit" [disabled]="!form.valid" [loading]="isLoading()">{{ submitButtonText() }}</button>
+      <button pButton type="submit" [disabled]="!form().valid" [loading]="isLoading()">{{ submitButtonText() }}</button>
     </div>
   </div>
 </form>

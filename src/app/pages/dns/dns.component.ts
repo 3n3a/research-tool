@@ -17,11 +17,18 @@ import { DnsAnswer } from '../../types/dns-answer';
 import { DnsTableComponent } from '../../components/dns-table/dns-table.component';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ErrorDisplayComponent } from "../../components/error-display/error-display.component";
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { IpInspectorComponent } from '../../components/ip-inspector/ip-inspector.component';
 
 @Component({
   selector: 'pages-dns',
-  imports: [DynamicFormComponent, DnsTableComponent, ErrorDisplayComponent],
+  imports: [
+    DynamicFormComponent,
+    DnsTableComponent,
+    ErrorDisplayComponent,
+    IpInspectorComponent,
+    RouterLink,
+  ],
   templateUrl: './dns.component.html',
   styleUrl: './dns.component.scss',
 })
@@ -98,6 +105,9 @@ export class DnsComponent {
   dnsAnswersLoading: WritableSignal<boolean> = signal(false);
 
   errorMessage = signal<string | null>(null);
+
+  /** Address the ip drawer is showing, if any. */
+  selectedIp = signal<string | null>(null);
 
   constructor(private dnsService: DnsService, private router: Router) {
     try {
