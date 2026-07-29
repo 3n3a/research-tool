@@ -1,4 +1,4 @@
-import { Component, computed, Input, Signal, signal, WritableSignal } from '@angular/core';
+import { Component, computed, Input, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { DynamicFormComponent } from "../../components/dynamic-form/dynamic-form.component";
 import { ErrorDisplayComponent } from "../../components/error-display/error-display.component";
 import { QuestionBase } from '../../types/question-base';
@@ -22,7 +22,7 @@ import { IpInfoComponent } from '../../components/ip-info/ip-info.component';
   templateUrl: './ip.component.html',
   styleUrl: './ip.component.scss'
 })
-export class IpComponent {
+export class IpComponent implements OnInit {
   qQuery = signal<string | undefined>(undefined)
 
   @Input()
@@ -45,19 +45,28 @@ export class IpComponent {
 
   errorMessage = signal<string | null>(null);
 
-  constructor(private ipService: IpService, private router: Router) {
-    if (!this.qQuery()) {
-      this.ipService.currentIp()
-        .subscribe({
-          next: (currentIp: string) => {
-            this.qQuery.set(currentIp);
-            this.onSubmit({ query: currentIp })
-          },
-          error: (error) => {
-            this.errorMessage.set((error as Error).message)
-          }
-        })
+  constructor(private ipService: IpService, private router: Router) {}
+
+  /**
+   * Fall back to the visitor's own address, but only when none was asked for.
+   * Has to be ngOnInit: the router binds `query` after construction, so a
+   * constructor check would always look empty and overwrite the requested
+   * address, breaking every link into this page.
+   */
+  ngOnInit() {
+    if (this.qQuery()) {
+      return;
     }
+
+    this.ipService.currentIp().subscribe({
+      next: (currentIp: string) => {
+        // Setting the question is enough, the form submits a complete query.
+        this.qQuery.set(currentIp.trim());
+      },
+      error: (error) => {
+        this.errorMessage.set((error as Error).message)
+      }
+    })
   }
 
   onSubmit(payload: IpForm) {

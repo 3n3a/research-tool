@@ -5,11 +5,11 @@
     <p-card header="IP Information">
         <comp-ip-info [ip]="ipAnswer()" [isLoading]="ipAnswersLoading()" />
     </p-card>
-    @if (ipAnswer()) {
+    @if (ipAnswer()?.reverse_dns) {
         <div class="flex flex-wrap gap-2">
             <a [routerLink]="'/app/dns'"
                 [queryParams]="{ domain: ipAnswer()!.reverse_dns, dns_type: 'A', dns_source: 'cloudflare', dns_proto: 'DoH' }"
-                class="p-button p-button-text" [class.hidden]="!ipAnswer()!.reverse_dns">
+                class="p-button p-button-text">
                 <i class="pi pi-file"></i>
                 <span>DNS records for {{ ipAnswer()!.reverse_dns }}</span>
             </a>

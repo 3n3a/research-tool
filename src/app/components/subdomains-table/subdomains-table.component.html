@@ -30,7 +30,7 @@
         <ng-template #body let-record let-expanded="expanded">
             <tr>
                 <td>
-                    <button type="button" pButton pRowToggler [text]="true" size="small"
+                    <button type="button" pButton [pRowToggler]="record" [text]="true" size="small"
                         [title]="'Show ' + recordType() + ' records'"
                         [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
                 </td>
