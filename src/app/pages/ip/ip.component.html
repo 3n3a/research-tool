@@ -13,6 +13,11 @@
                 <i class="pi pi-file"></i>
                 <span>DNS records for {{ ipAnswer()!.reverse_dns }}</span>
             </a>
+            <a [routerLink]="'/app/whois'" [queryParams]="{ domain: ipAnswer()!.reverse_dns }"
+                class="p-button p-button-text">
+                <i class="pi pi-id-card"></i>
+                <span>Whois of {{ ipAnswer()!.reverse_dns }}</span>
+            </a>
         </div>
     }
     <comp-error-display [errorMessage]="errorMessage()" />

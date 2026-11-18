@@ -53,7 +53,7 @@ export class SubdomainsComponent {
       label: 'Subdomain Source',
       required: true,
       order: 2,
-      value: this.qSource() || 'crtsh',
+      value: this.qSource() || 'all',
       options: this.subdomainsSources(),
     }),
   ]);

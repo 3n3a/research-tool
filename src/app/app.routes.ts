@@ -30,6 +30,11 @@ export const routes: Routes = [
           path: 'ip',
           loadComponent: () => import('./pages/ip/ip.component')
             .then(c => c.IpComponent)
+        },
+        {
+          path: 'whois',
+          loadComponent: () => import('./pages/whois/whois.component')
+            .then(c => c.WhoisComponent)
         }
       ]
     }

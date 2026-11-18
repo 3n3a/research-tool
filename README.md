@@ -16,6 +16,7 @@ one lookup leads into the next:
 | `/app/subdomains` | `domain`, `source` |
 | `/app/dns` | `domain`, `dns_type`, `dns_source`, `dns_proto` |
 | `/app/ip` | `query` |
+| `/app/whois` | `domain` |
 
 The drill-down paths:
 
@@ -25,11 +26,19 @@ The drill-down paths:
 - **DNS → IP.** `A` and `AAAA` values open an ip-information drawer in place. Everything that ends in
   a hostname — `CNAME`, `DNAME`, `NS`, `PTR`, `MX`, `SRV` — links on to a dns lookup or a subdomain
   search for that target.
-- **Either page → the other.** Both pages carry a link to the other view of the current domain, and
-  the ip page links to the dns records of the reverse-dns name.
+- **Subdomain liveness.** The DNS column tags each result as resolving (has an `A`/`AAAA` answer) or
+  not. Only the page being shown is resolved, through the api's `/dns/resolve`, which caches answers
+  per resolver; the All / Resolving / Not resolving toggle filters the rows of that page.
+- **Whois.** Registration data (registrar, dates, status, nameservers, contacts and the raw rdap
+  answer) from [whois-lookup](https://github.com/3n3a/whois-lookup), proxied by the api. A
+  subdomain is looked up as its registered domain.
+- **Between pages.** Subdomains, dns and whois each link to the other two views of the current domain,
+  and the ip page links to the dns records and whois of the reverse-dns name.
 
 The backend drives every dropdown from its option endpoints, so new subdomain sources appear here
-without a frontend change.
+without a frontend change. Subdomain searches default to the `all` preset.
+
+The version in the top bar is `version` from `package.json`.
 
 ## Development server
 

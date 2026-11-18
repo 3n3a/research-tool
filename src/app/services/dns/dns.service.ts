@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { QuestionOption } from '../../types/question-option';
 import { BaseResponse } from '../../types/base-response';
 import { DnsAnswer } from '../../types/dns-answer';
+import { ResolveResult } from '../../types/resolve-result';
 import { catchError, map } from 'rxjs';
 import { BaseService } from '../base/base.service';
 
@@ -18,6 +19,18 @@ export class DnsService extends BaseService {
     return this.httpClient
       .post<BaseResponse<DnsAnswer[]>>('/dns/', {
         dns: { name: name, type: type, source: source, protocol: protocol},
+      })
+      .pipe(
+        map((response) => response.data),
+        catchError(super.handleError)
+      );
+  }
+
+  /** Liveness of up to 100 hostnames; the api caches answers per resolver. */
+  resolve(names: string[], source: string) {
+    return this.httpClient
+      .post<BaseResponse<ResolveResult[]>>('/dns/resolve', {
+        resolve: { names: names, source: source },
       })
       .pipe(
         map((response) => response.data),

@@ -17,6 +17,11 @@ export const menuItems: MenuItem[] = [
     routerLink: '/app/subdomains'
   },
   {
+    label: 'Whois',
+    icon: 'pi pi-fw pi-id-card',
+    routerLink: '/app/whois'
+  },
+  {
     label: 'IP-Adresses',
     icon: 'pi pi-fw pi-map-marker',
     routerLink: '/app/ip'

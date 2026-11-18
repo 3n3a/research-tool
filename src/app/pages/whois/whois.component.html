@@ -1,0 +1,27 @@
+<div class="py-4 flex flex-col gap-2">
+  <h1 class="text-4xl pb-4">Whois</h1>
+  <comp-dynamic-form [questions]="questions()" submitButtonText="Search" (payload)="onSubmit($event)"
+    [isLoading]="whoisAnswerLoading()" />
+  @if (registered()) {
+    <div class="flex flex-wrap gap-2">
+      <a [routerLink]="'/app/dns'"
+        [queryParams]="{ domain: registered(), dns_type: 'A', dns_source: 'cloudflare', dns_proto: 'DoH' }"
+        class="p-button p-button-text">
+        <i class="pi pi-file"></i>
+        <span>DNS records of {{ registered() }}</span>
+      </a>
+      <a [routerLink]="'/app/subdomains'" [queryParams]="{ domain: registered(), source: 'all' }"
+        class="p-button p-button-text">
+        <i class="pi pi-sitemap"></i>
+        <span>Subdomains of {{ registered() }}</span>
+      </a>
+    </div>
+  }
+  @if (whoisAnswer() && qDomain() && whoisAnswer()!.domain !== qDomain()!.trim().toLowerCase()) {
+    <p class="text-muted-color">
+      {{ qDomain() }} is not registered itself; showing its registered domain {{ whoisAnswer()!.domain }}.
+    </p>
+  }
+  <comp-whois-info [whois]="whoisAnswer()" [isLoading]="whoisAnswerLoading()" />
+  <comp-error-display [errorMessage]="errorMessage()" />
+</div>

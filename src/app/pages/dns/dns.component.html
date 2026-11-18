@@ -8,6 +8,10 @@
         <i class="pi pi-sitemap"></i>
         <span>Subdomains of {{ qDomain() }}</span>
       </a>
+      <a [routerLink]="'/app/whois'" [queryParams]="{ domain: qDomain() }" class="p-button p-button-text">
+        <i class="pi pi-id-card"></i>
+        <span>Whois of {{ qDomain() }}</span>
+      </a>
     </div>
   }
   <comp-dns-table [records]="dnsAnswers() || []" [isLoading]="dnsAnswersLoading()"

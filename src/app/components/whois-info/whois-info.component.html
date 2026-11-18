@@ -1,0 +1,94 @@
+<p-card header="Registration">
+  <p-table [value]="facts()" [loading]="isLoading()" styleClass="w-full">
+    <ng-template #body let-fact>
+      <tr>
+        <th scope="row" class="w-1/3 font-normal text-muted-color">{{ fact.label }}</th>
+        <td class="break-all">
+          @if (fact.tags) {
+            <div class="flex flex-wrap gap-1">
+              @for (tag of fact.tags; track tag) {
+                <p-tag [value]="tag" severity="secondary" />
+              }
+            </div>
+          } @else if (fact.date) {
+            <span [title]="fact.date">{{ fact.date | date: 'mediumDate' }}</span>
+          } @else if (fact.href) {
+            <a [href]="fact.href" target="_blank" rel="noopener noreferrer" class="underline">
+              {{ fact.value }}
+            </a>
+          } @else {
+            {{ fact.value }}
+          }
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="2" class="text-muted-color">No registration data.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+@if (whois(); as whois) {
+  @if (whois.nameservers.length) {
+    <p-card header="Nameservers">
+      <ul class="flex flex-col gap-1">
+        @for (ns of whois.nameservers; track ns) {
+          <li class="flex flex-wrap items-center gap-1">
+            <span class="break-all font-bold">{{ ns }}</span>
+            <a [routerLink]="'/app/dns'"
+              [queryParams]="{ domain: ns, dns_type: 'A', dns_source: 'cloudflare', dns_proto: 'DoH' }"
+              class="p-button p-button-text p-button-sm" [title]="'Look up ' + ns">
+              <i class="pi pi-file"></i>
+            </a>
+          </li>
+        }
+      </ul>
+    </p-card>
+  }
+
+  @if (contacts().length) {
+    <p-card header="Contacts">
+      <p-table [value]="contacts()" [tableStyle]="{ 'min-width': '30rem' }">
+        <ng-template #header>
+          <tr>
+            <th>Role</th>
+            <th>Name</th>
+            <th>Email / Phone</th>
+            <th>Address</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-contact>
+          <tr>
+            <td>{{ contact.roles.join(', ') }}</td>
+            <td class="break-all">
+              {{ contact.organization || contact.name }}
+              @if (contact.organization && contact.name && contact.name !== contact.organization) {
+                <div class="text-muted-color">{{ contact.name }}</div>
+              }
+            </td>
+            <td class="break-all">
+              @if (contact.email) {
+                <a [href]="'mailto:' + contact.email" class="underline">{{ contact.email }}</a>
+              }
+              @if (contact.phone) {
+                <div class="text-muted-color">{{ contact.phone }}</div>
+              }
+            </td>
+            <td class="whitespace-pre-line">{{ contact.address }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  }
+
+  <p-card>
+    <details>
+      <summary class="cursor-pointer text-muted-color">
+        Raw {{ whois.protocol === 'rdap' ? 'RDAP' : 'WHOIS' }} answer
+      </summary>
+      <pre class="mt-2 overflow-auto text-xs max-h-[32rem]">{{ whois.raw | json }}</pre>
+    </details>
+  </p-card>
+}
