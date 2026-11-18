@@ -13,7 +13,7 @@ export class WhoisService extends BaseService {
     super();
   }
 
-  /** Proxied by the api: whois.enea.tech itself sends no cors headers. */
+  /** RDAP, or classic whois for tlds without it, looked up by the api. */
   query(domain: string) {
     return this.httpClient
       .post<BaseResponse<WhoisInfo>>('/whois/', {

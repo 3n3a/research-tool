@@ -29,9 +29,9 @@ The drill-down paths:
 - **Subdomain liveness.** The DNS column tags each result as resolving (has an `A`/`AAAA` answer) or
   not. Only the page being shown is resolved, through the api's `/dns/resolve`, which caches answers
   per resolver; the All / Resolving / Not resolving toggle filters the rows of that page.
-- **Whois.** Registration data (registrar, dates, status, nameservers, contacts and the raw rdap
-  answer) from [whois-lookup](https://github.com/3n3a/whois-lookup), proxied by the api. A
-  subdomain is looked up as its registered domain.
+- **Whois.** Registration data (registrar, dates, status, nameservers, contacts and the raw answer),
+  looked up by the api over RDAP, or classic whois for tlds without RDAP. A subdomain is looked up
+  as its registered domain.
 - **Between pages.** Subdomains, dns and whois each link to the other two views of the current domain,
   and the ip page links to the dns records and whois of the reverse-dns name.
 

@@ -11,7 +11,11 @@
               }
             </div>
           } @else if (fact.date) {
-            <span [title]="fact.date">{{ fact.date | date: 'mediumDate' }}</span>
+            @if (isDate(fact.date)) {
+              <span [title]="fact.date">{{ fact.date | date: 'mediumDate' }}</span>
+            } @else {
+              {{ fact.date }}
+            }
           } @else if (fact.href) {
             <a [href]="fact.href" target="_blank" rel="noopener noreferrer" class="underline">
               {{ fact.value }}
@@ -88,7 +92,7 @@
       <summary class="cursor-pointer text-muted-color">
         Raw {{ whois.protocol === 'rdap' ? 'RDAP' : 'WHOIS' }} answer
       </summary>
-      <pre class="mt-2 overflow-auto text-xs max-h-[32rem]">{{ whois.raw | json }}</pre>
+      <pre class="mt-2 overflow-auto text-xs max-h-[32rem]">{{ rawText() }}</pre>
     </details>
   </p-card>
 }

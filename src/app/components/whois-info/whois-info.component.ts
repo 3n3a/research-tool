@@ -1,4 +1,4 @@
-import { DatePipe, JsonPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -20,7 +20,7 @@ type Fact = {
 
 @Component({
   selector: 'comp-whois-info',
-  imports: [DatePipe, JsonPipe, RouterLink, CardModule, TableModule, TagModule],
+  imports: [DatePipe, RouterLink, CardModule, TableModule, TagModule],
   templateUrl: './whois-info.component.html',
   styleUrl: './whois-info.component.scss',
 })
@@ -50,6 +50,17 @@ export class WhoisInfoComponent {
     ];
     return facts.filter((fact) => !!fact.value || !!fact.date || !!fact.tags?.length);
   });
+
+  /** Whois answers are plain text already; rdap is json to pretty-print. */
+  readonly rawText = computed(() => {
+    const raw = this.whois()?.raw;
+    return typeof raw === 'string' ? raw : JSON.stringify(raw, null, 2);
+  });
+
+  /** Registries write dates in many formats; the date pipe throws on unknown ones. */
+  isDate(value: string): boolean {
+    return !Number.isNaN(Date.parse(value));
+  }
 
   readonly contacts = computed(() =>
     (this.whois()?.contacts ?? []).filter(
